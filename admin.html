@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Vision X">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Vision X</title>
+  <link rel="shortcut icon" href="logo-vision_X.png" type="image/x-icon">
+  <meta name="description" content="Vision X Admin Dashboard - Manage courses and students">
+  <link rel="stylesheet" href="./src/css/utils.css">
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <style>
+    /* Admin Dashboard Specific Styles */
+    .admin-container {
+      display: flex;
+      min-height: 100vh;
+      background: #f8f9fa;
+    }
+
+    .admin-sidebar {
+      width: 280px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .admin-sidebar .logo {
+      text-align: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+
+    .admin-sidebar .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .admin-sidebar .logo h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .admin-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .admin-nav li {
+      margin: 5px 0;
+    }
+
+    .admin-nav a {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .admin-nav a:hover,
+    .admin-nav a.active {
+      background: rgba(255,255,255,0.1);
+      border-left-color: #fff;
+      transform: translateX(5px);
+    }
+
+    .admin-nav a i {
+      margin-right: 12px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .admin-main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 20px;
+    }
+
+    .admin-header {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-header h1 {
+      color: #333;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .admin-header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .admin-header .user-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .admin-content {
+      display: none;
+    }
+
+    .admin-content.active {
+      display: block;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+
+    .stat-icon.courses { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .stat-icon.students { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .stat-icon.certificates { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .stat-icon.revenue { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+
+    .stat-content h3 {
+      margin: 0 0 5px 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .stat-content p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .section-header {
+      padding: 20px 30px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #43e97b, #38f9d7);
+      color: white;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      color: #333;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 0.8rem;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .admin-table th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .admin-table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      color: #333;
+    }
+
+    .close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .badge-success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .badge-warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .badge-danger {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .search-box {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 300px;
+      margin-bottom: 20px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    /* Course Management Styles */
+    .admin-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 20px 30px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8f9fa;
+    }
+
+    .card-title {
+      margin: 0;
+      color: #333;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    .upload-area:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+
+    .upload-area p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .module-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .module-item:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .module-item.sortable {
+      cursor: move;
+    }
+
+    .module-item.sortable:hover {
+      background: #f8f9ff;
+    }
+
+    .module-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .module-number {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+
+    .module-title-input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .module-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .module-details {
+      width: 100%;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .module-link-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .module-link-uploader {
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    .module-link-uploader:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+
+    .module-link-uploader.has-file {
+      border-color: #28a745;
+      background: #f8fff9;
+    }
+
+    .module-link-uploader i {
+      font-size: 24px;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+
+    .module-link-uploader p {
+      margin: 0;
+      color: #666;
+      font-size: 12px;
+    }
+
+    .module-link-uploader input[type="file"] {
+      display: none;
+    }
+
+    .module-link-input {
+      margin-top: 10px;
+    }
+
+    .module-link-input input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .module-description {
+      margin-top: 15px;
+    }
+
+    .module-description textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      resize: vertical;
+    }
+
+    .sort-handle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #999;
+      cursor: move;
+      font-size: 16px;
+    }
+
+    .sort-handle:hover {
+      color: #667eea;
+    }
+
+    .course-list {
+      padding: 20px 30px;
+    }
+
+    .course-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .course-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .course-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .course-content {
+      flex: 1;
+    }
+
+    .course-title {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .course-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .course-meta span {
+      color: #666;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .course-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+      }
+
+      .admin-main {
+        margin-left: 0;
+      }
+
+      .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <nav class="admin-sidebar">
+      <div class="logo">
+        <img src="logo-vision_X.png" alt="Vision X Logo">
+        <h2>Vision X Admin</h2>
+      </div>
+      <ul class="admin-nav">
+        <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+          <i class="fas fa-tachometer-alt"></i>
+          Dashboard
+        </a></li>
+        <li><a href="#students" class="nav-link" data-section="students">
+          <i class="fas fa-users"></i>
+          Certified Students
+        </a></li>
+        <li><a href="#newcourse" class="nav-link" data-section="newcourse">
+            <i class="fas fa-book"></i>
+            New Courses
+          </a></li>
+        <li><a href="#" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <!-- Header -->
+      <header class="admin-header">
+        <h1 id="pageTitle">Dashboard</h1>
+        <div class="user-info">
+          <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Admin">
+          <span>Admin User</span>
+        </div>
+      </header>
+
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="admin-content active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon courses">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="totalCourses">0</h3>
+              <p>Total Courses</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon students">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="totalStudents">0</h3>
+              <p>Certified Students</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon certificates">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="totalCertificates">0</h3>
+              <p>Certificates Issued</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon revenue">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="totalRevenue">0</h3>
+              <p>Total Enrollments</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-header">
+            <h2>Recent Activity</h2>
+          </div>
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Activity</th>
+                  <th>User</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentActivity">
+                <tr>
+                  <td>2024-01-15</td>
+                  <td>New course added: Web Development</td>
+                  <td>Admin</td>
+                  <td><span class="badge badge-success">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>2024-01-14</td>
+                  <td>Student certified: Rutvi Mistry</td>
+                  <td>Admin</td>
+                  <td><span class="badge badge-success">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>2024-01-13</td>
+                  <td>Course updated: Python Programming</td>
+                  <td>Admin</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Students Section -->
+      <section id="students" class="admin-content">
+        <div class="content-section">
+          <div class="section-header">
+            <h2>Certified Students</h2>
+            <button class="btn btn-primary" onclick="openStudentModal()">
+              <i class="fas fa-plus"></i>
+              Add Student
+            </button>
+          </div>
+          <div class="table-container">
+            <input type="text" class="search-box" placeholder="Search students..." id="studentSearch">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Course</th>
+                  <th>Certification Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTable">
+                <!-- Students will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- New Courses Section -->
+      <section id="newcourse" class="admin-content">
+        <div class="content-section">
+          <div class="section-header">
+            <h2>Course Management</h2>
+            <button class="btn btn-primary" onclick="showCourseForm()">
+              <i class="fas fa-plus"></i>
+              Add New Course
+            </button>
+          </div>
+          
+          <!-- Course Form -->
+          <div class="admin-card" id="courseForm" style="display: none;">
+            <div class="card-header">
+              <h2 class="card-title">Create New Course</h2>
+            </div>
+            
+            <form id="uploadCourseForm">
+              <div class="form-group">
+                <label class="form-label">Course Title</label>
+                <input type="text" class="form-control" id="courseTitle" placeholder="Enter course title" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Course Description</label>
+                <textarea class="form-control" id="courseDescription" placeholder="Describe the course content and objectives" required></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Instructor</label>
+                <input type="text" class="form-control" id="courseInstructor" placeholder="Instructor name" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Course Category</label>
+                <select class="form-control" id="courseCategory" required>
+                  <option value="">Select a category</option>
+                  <option value="web">Web Development</option>
+                  <option value="programming">Programming</option>
+                  <option value="data-science">Data Science</option>
+                  <option value="design">UI/UX Design</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Course Duration (weeks)</label>
+                <input type="number" class="form-control" id="courseDuration" min="1" max="52" placeholder="e.g., 12" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Course Thumbnail</label>
+                <div class="upload-area" onclick="document.getElementById('thumbnailUpload').click()">
+                  <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p>Drag & drop your image here or click to browse</p>
+                  <input type="file" accept="image/*" style="display: none;" id="thumbnailUpload" required>
+                </div>
+              </div>
+              
+              <!-- Modules Section -->
+              <div class="form-group">
+                <label class="form-label">Course Modules</label>
+                <div id="modulesContainer">
+                  <div class="module-item sortable" data-module-id="1">
+                    <div class="sort-handle">
+                      <i class="fas fa-grip-vertical"></i>
+                    </div>
+                    <div class="module-info">
+                      <div class="module-header">
+                        <span class="module-number">1</span>
+                        <div class="module-title-input">
+                          <input type="text" class="form-control" placeholder="Module title" required>
+                        </div>
+                        <div class="module-actions">
+                          <button type="button" class="btn btn-danger" onclick="removeModule(this)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="module-details">
+                        <div class="module-link-section">
+                          <div class="module-link-uploader" onclick="document.getElementById('moduleFile1').click()">
+                            <i class="fas fa-file-upload"></i>
+                            <p>Upload Module File</p>
+                            <input type="file" id="moduleFile1" accept=".pdf,.doc,.docx,.ppt,.pptx,.mp4,.avi,.mov" onchange="handleFileUpload(this)">
+                          </div>
+                          <div class="module-link-uploader" onclick="document.getElementById('moduleVideo1').click()">
+                            <i class="fas fa-video"></i>
+                            <p>Upload Video</p>
+                            <input type="file" id="moduleVideo1" accept="video/*" onchange="handleVideoUpload(this)">
+                          </div>
+                        </div>
+                        <div class="module-link-input">
+                          <input type="url" class="form-control" placeholder="Or paste video URL (YouTube, Vimeo, etc.)">
+                        </div>
+                        <div class="module-description">
+                          <textarea class="form-control" placeholder="Module description (optional)"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <button type="button" class="btn btn-secondary" onclick="addModule()" style="margin-top: 15px;">
+                  <i class="fas fa-plus"></i> Add Module
+                </button>
+              </div>
+              
+              <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="saveCourse()">
+                  <i class="fas fa-save"></i> Create Course
+                </button>
+                <button type="button" class="btn btn-danger" onclick="hideCourseForm()">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Existing Courses -->
+          <div class="admin-card">
+            <div class="card-header">
+              <h2 class="card-title">Existing Courses</h2>
+              <div class="search-box">
+                <input type="text" class="form-control" placeholder="Search courses..." id="courseSearch" style="width: 250px;">
+              </div>
+            </div>
+            
+            <div class="course-list" id="courseList">
+              <!-- Courses will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Student Modal -->
+<div id="studentModal" class="modal">
+<div class="modal-content">
+  <div class="modal-header">
+    <h3 id="studentModalTitle">Add New Student</h3>
+    <button class="close" onclick="closeStudentModal()">&times;</button>
+  </div>
+  <form id="studentForm">
+    <div class="form-group">
+      <label>Student Name</label>
+      <input type="text" id="studentName" required>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="studentEmail" required>
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="tel" id="studentPhone">
+    </div>
+    <div class="form-group">
+      <label>Course</label>
+      <select id="studentCourse" required>
+        <option value="">Select Course</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Certification Date</label>
+      <input type="date" id="certificationDate" required>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="studentStatus">
+        <option value="certified">Certified</option>
+        <option value="pending">Pending</option>
+        <option value="incomplete">Incomplete</option>
+      </select>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn" onclick="closeStudentModal()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save Student</button>
+    </div>
+  </form>
+</div>
+</div>
+
+  <script src="./src/js/admin.js"></script>
+</body>
+</html>

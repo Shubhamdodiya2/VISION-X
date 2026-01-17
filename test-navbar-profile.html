@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Profile Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .test-button:hover {
+            background-color: #0056b3;
+        }
+        .test-button.success {
+            background-color: #28a745;
+        }
+        .test-button.warning {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .test-button.danger {
+            background-color: #dc3545;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .test-steps {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .test-steps ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .current-user {
+            background-color: #e2e3e5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .navbar-preview {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #dee2e6;
+        }
+        .page-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .page-link {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            color: #495057;
+            transition: background-color 0.2s;
+        }
+        .page-link:hover {
+            background-color: #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔗 Navbar Profile Test</h1>
+    
+    <div class="test-container">
+        <h2>📊 Current Authentication Status</h2>
+        <div id="auth-status" class="status info">Checking authentication status...</div>
+        <div id="current-user" class="current-user" style="display: none;">
+            <strong>Logged in as:</strong> <span id="user-email"></span><br>
+            <strong>Display Name:</strong> <span id="user-name"></span><br>
+            <strong>User ID:</strong> <span id="user-uid"></span><br>
+            <strong>Profile Image:</strong> <span id="profile-image-status"></span>
+        </div>
+        <button class="test-button" onclick="checkAuthStatus()">Refresh Status</button>
+        <button class="test-button danger" onclick="clearAuth()">Clear Auth Data</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🎯 Profile Image Test</h2>
+        <div class="test-steps">
+            <strong>Test Steps:</strong>
+            <ol>
+                <li>Make sure you're logged in (use login page if needed)</li>
+                <li>Go to any page below</li>
+                <li>Check if navbar shows profile image (not login/signup buttons)</li>
+                <li>Click on profile image - should go to profile page</li>
+                <li>Profile page should load without asking to login again</li>
+            </ol>
+        </div>
+        <div id="profile-test-status" class="status info">Ready to test profile image</div>
+        <button class="test-button" onclick="testProfileImage()">Test Profile Image</button>
+    </div>
+
+    <div class="test-container">
+        <h2>📄 Test All Pages</h2>
+        <div class="test-steps">
+            <strong>Instructions:</strong>
+            <ol>
+                <li>Click on any page link below</li>
+                <li>Check if navbar shows profile image (if logged in)</li>
+                <li>Click on profile image to test profile page access</li>
+                <li>Verify profile page loads without redirect to login</li>
+            </ol>
+        </div>
+        <div class="page-links">
+            <a href="index.html" class="page-link">🏠 Homepage</a>
+            <a href="about.html" class="page-link">ℹ️ About</a>
+            <a href="courses.html" class="page-link">📚 Courses</a>
+            <a href="projects.html" class="page-link">💼 Projects</a>
+            <a href="roadmap.html" class="page-link">🗺️ Roadmap</a>
+            <a href="contact.html" class="page-link">📞 Contact</a>
+            <a href="profile.html" class="page-link">👤 Profile</a>
+            <a href="login.html" class="page-link">🔐 Login</a>
+            <a href="signup.html" class="page-link">📝 Signup</a>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔄 Complete Flow Test</h2>
+        <div id="flow-status" class="status info">Ready to test complete flow</div>
+        <button class="test-button success" onclick="testCompleteFlow()">Test Complete Flow</button>
+        <button class="test-button warning" onclick="simulateLogin()">Simulate Login Process</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🐛 Debug Information</h2>
+        <div id="debug-info" class="status info">Debug information will appear here</div>
+        <button class="test-button" onclick="showDebugInfo()">Show Debug Info</button>
+    </div>
+
+    <script type="module">
+        import { isUserLoggedIn, getCurrentUser, addAuthListener } from './src/js/auth-utils.js';
+        
+        // Listen for auth state changes
+        addAuthListener((user) => {
+            updateUserStatus(user);
+        });
+
+        function updateUserStatus(user) {
+            const statusDiv = document.getElementById('auth-status');
+            const userDiv = document.getElementById('current-user');
+            
+            if (user) {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = '✅ User is logged in';
+                
+                userDiv.style.display = 'block';
+                document.getElementById('user-email').textContent = user.email || 'N/A';
+                document.getElementById('user-name').textContent = user.displayName || 'N/A';
+                document.getElementById('user-uid').textContent = user.uid || 'N/A';
+                
+                const profileImageStatus = user.photoURL ? 
+                    `✅ Has profile image: ${user.photoURL}` : 
+                    '⚠️ Using default profile image';
+                document.getElementById('profile-image-status').textContent = profileImageStatus;
+            } else {
+                statusDiv.className = 'status warning';
+                statusDiv.textContent = '⚠️ User is not logged in';
+                userDiv.style.display = 'none';
+            }
+        }
+
+        function checkAuthStatus() {
+            const user = getCurrentUser();
+            updateUserStatus(user);
+        }
+
+        function testProfileImage() {
+            const isLoggedIn = isUserLoggedIn();
+            const statusDiv = document.getElementById('profile-test-status');
+            
+            if (isLoggedIn) {
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `
+                    ✅ Profile image test ready!<br>
+                    <strong>Next steps:</strong><br>
+                    1. Go to any page using the links above<br>
+                    2. Look for profile image in navbar (top right)<br>
+                    3. Click on profile image<br>
+                    4. Should go to profile page without login prompt
+                `;
+            } else {
+                statusDiv.className = 'status warning';
+                statusDiv.innerHTML = `
+                    ⚠️ Please log in first to test profile image.<br>
+                    <a href="login.html" class="test-button">Go to Login</a>
+                `;
+            }
+        }
+
+        function testCompleteFlow() {
+            const statusDiv = document.getElementById('flow-status');
+            const isLoggedIn = isUserLoggedIn();
+            
+            if (isLoggedIn) {
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `
+                    ✅ Complete flow test ready!<br>
+                    <strong>Test Steps:</strong><br>
+                    1. Click on any page link above<br>
+                    2. Verify navbar shows profile image<br>
+                    3. Click profile image → should go to profile page<br>
+                    4. Profile page should load with your info<br>
+                    5. No login prompt should appear<br>
+                    6. Test logout from profile page
+                `;
+            } else {
+                statusDiv.className = 'status info';
+                statusDiv.innerHTML = `
+                    <strong>Complete Flow Test Instructions:</strong><br>
+                    1. <a href="login.html">Log in</a> or <a href="signup.html">Sign up</a><br>
+                    2. Return to this page<br>
+                    3. Click "Test Complete Flow" again<br>
+                    4. Follow the test steps
+                `;
+            }
+        }
+
+        function simulateLogin() {
+            const statusDiv = document.getElementById('flow-status');
+            statusDiv.className = 'status info';
+            statusDiv.innerHTML = `
+                <strong>Login Simulation:</strong><br>
+                1. <a href="login.html">Go to Login Page</a><br>
+                2. Enter your credentials<br>
+                3. Click Login<br>
+                4. Should redirect to homepage<br>
+                5. Navbar should show profile image<br>
+                6. Return here to continue testing
+            `;
+        }
+
+        function showDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            const localStorage = window.localStorage;
+            
+            const debugInfo = `
+                <strong>LocalStorage Debug Info:</strong><br>
+                userLoggedIn: ${localStorage.getItem('userLoggedIn')}<br>
+                userEmail: ${localStorage.getItem('userEmail')}<br>
+                userUID: ${localStorage.getItem('userUID')}<br>
+                userDisplayName: ${localStorage.getItem('userDisplayName')}<br>
+                userPhotoURL: ${localStorage.getItem('userPhotoURL')}<br>
+                <br>
+                <strong>Auth State:</strong><br>
+                isUserLoggedIn(): ${isUserLoggedIn()}<br>
+                getCurrentUser(): ${getCurrentUser() ? 'User object exists' : 'No user object'}
+            `;
+            
+            debugDiv.innerHTML = debugInfo;
+        }
+
+        function clearAuth() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        // Auto-check status on page load
+        window.addEventListener('load', () => {
+            checkAuthStatus();
+        });
+    </script>
+</body>
+</html>

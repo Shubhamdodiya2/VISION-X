@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Pages Profile Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .test-button:hover {
+            background-color: #0056b3;
+        }
+        .test-button.success {
+            background-color: #28a745;
+        }
+        .test-button.warning {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .test-button.danger {
+            background-color: #dc3545;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .test-steps {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .test-steps ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .current-user {
+            background-color: #e2e3e5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .page-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+        .page-card h3 {
+            margin: 0 0 10px 0;
+            color: #495057;
+        }
+        .page-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .page-link {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+        .page-link:hover {
+            background-color: #0056b3;
+        }
+        .checklist {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📄 All Pages Profile Test</h1>
+    
+    <div class="test-container">
+        <h2>📊 Current Authentication Status</h2>
+        <div id="auth-status" class="status info">Checking authentication status...</div>
+        <div id="current-user" class="current-user" style="display: none;">
+            <strong>Logged in as:</strong> <span id="user-email"></span><br>
+            <strong>Display Name:</strong> <span id="user-name"></span><br>
+            <strong>User ID:</strong> <span id="user-uid"></span>
+        </div>
+        <button class="test-button" onclick="checkAuthStatus()">Refresh Status</button>
+        <button class="test-button danger" onclick="clearAuth()">Clear Auth Data</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🎯 Test All Pages</h2>
+        <div class="test-steps">
+            <strong>Test Instructions:</strong>
+            <ol>
+                <li>Make sure you're logged in (use login page if needed)</li>
+                <li>Click on each page link below</li>
+                <li>Check if navbar shows profile image (not login/signup buttons)</li>
+                <li>Click on profile image - should go to profile page</li>
+                <li>Profile page should load without asking to login again</li>
+                <li>Use the checklist below to track your progress</li>
+            </ol>
+        </div>
+        
+        <div class="checklist">
+            <h4>✅ Pages Checklist:</h4>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-index"> <label for="check-index">Homepage (index.html)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-courses"> <label for="check-courses">Courses (courses.html)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-certificate"> <label for="check-certificate">Certificate (certificate/index.html)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-projects"> <label for="check-projects">Projects (projects.html)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-roadmap"> <label for="check-roadmap">Roadmap (roadmap.html)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-contact"> <label for="check-contact">Contact (contact.html)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check-profile"> <label for="check-profile">Profile (profile.html)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔗 Page Links</h2>
+        <div class="page-grid">
+            <div class="page-card">
+                <h3>🏠 Homepage</h3>
+                <p>Main landing page</p>
+                <a href="index.html" class="page-link">Test Homepage</a>
+            </div>
+            
+            <div class="page-card">
+                <h3>📚 Courses</h3>
+                <p>Course catalog and information</p>
+                <a href="courses.html" class="page-link">Test Courses</a>
+            </div>
+            
+            <div class="page-card">
+                <h3>🏆 Certificate</h3>
+                <p>Certificate generator</p>
+                <a href="certificate/index.html" class="page-link">Test Certificate</a>
+            </div>
+            
+            <div class="page-card">
+                <h3>💼 Projects</h3>
+                <p>Project showcase</p>
+                <a href="projects.html" class="page-link">Test Projects</a>
+            </div>
+            
+            <div class="page-card">
+                <h3>🗺️ Roadmap</h3>
+                <p>Learning roadmap</p>
+                <a href="roadmap.html" class="page-link">Test Roadmap</a>
+            </div>
+            
+            <div class="page-card">
+                <h3>📞 Contact</h3>
+                <p>Contact information</p>
+                <a href="contact.html" class="page-link">Test Contact</a>
+            </div>
+            
+            <div class="page-card">
+                <h3>👤 Profile</h3>
+                <p>User profile page</p>
+                <a href="profile.html" class="page-link">Test Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔄 Complete Flow Test</h2>
+        <div id="flow-status" class="status info">Ready to test complete flow</div>
+        <button class="test-button success" onclick="testCompleteFlow()">Test Complete Flow</button>
+        <button class="test-button warning" onclick="resetChecklist()">Reset Checklist</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🐛 Debug Information</h2>
+        <div id="debug-info" class="status info">Debug information will appear here</div>
+        <button class="test-button" onclick="showDebugInfo()">Show Debug Info</button>
+    </div>
+
+    <script type="module">
+        import { isUserLoggedIn, getCurrentUser, addAuthListener } from './src/js/auth-utils.js';
+        
+        // Listen for auth state changes
+        addAuthListener((user) => {
+            updateUserStatus(user);
+        });
+
+        function updateUserStatus(user) {
+            const statusDiv = document.getElementById('auth-status');
+            const userDiv = document.getElementById('current-user');
+            
+            if (user) {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = '✅ User is logged in';
+                
+                userDiv.style.display = 'block';
+                document.getElementById('user-email').textContent = user.email || 'N/A';
+                document.getElementById('user-name').textContent = user.displayName || 'N/A';
+                document.getElementById('user-uid').textContent = user.uid || 'N/A';
+            } else {
+                statusDiv.className = 'status warning';
+                statusDiv.textContent = '⚠️ User is not logged in';
+                userDiv.style.display = 'none';
+            }
+        }
+
+        function checkAuthStatus() {
+            const user = getCurrentUser();
+            updateUserStatus(user);
+        }
+
+        function testCompleteFlow() {
+            const statusDiv = document.getElementById('flow-status');
+            const isLoggedIn = isUserLoggedIn();
+            
+            if (isLoggedIn) {
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `
+                    ✅ Complete flow test ready!<br>
+                    <strong>Test Steps:</strong><br>
+                    1. Click on each page link above<br>
+                    2. Verify navbar shows profile image on each page<br>
+                    3. Click profile image → should go to profile page<br>
+                    4. Profile page should load with your info<br>
+                    5. No login prompt should appear<br>
+                    6. Use the checklist to track your progress<br>
+                    7. Test logout from any page
+                `;
+            } else {
+                statusDiv.className = 'status info';
+                statusDiv.innerHTML = `
+                    <strong>Complete Flow Test Instructions:</strong><br>
+                    1. <a href="login.html" class="test-button">Log in</a> or <a href="signup.html" class="test-button">Sign up</a><br>
+                    2. Return to this page<br>
+                    3. Click "Test Complete Flow" again<br>
+                    4. Follow the test steps
+                `;
+            }
+        }
+
+        function resetChecklist() {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+
+        function showDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            const localStorage = window.localStorage;
+            
+            const debugInfo = `
+                <strong>LocalStorage Debug Info:</strong><br>
+                userLoggedIn: ${localStorage.getItem('userLoggedIn')}<br>
+                userEmail: ${localStorage.getItem('userEmail')}<br>
+                userUID: ${localStorage.getItem('userUID')}<br>
+                userDisplayName: ${localStorage.getItem('userDisplayName')}<br>
+                userPhotoURL: ${localStorage.getItem('userPhotoURL')}<br>
+                <br>
+                <strong>Auth State:</strong><br>
+                isUserLoggedIn(): ${isUserLoggedIn()}<br>
+                getCurrentUser(): ${getCurrentUser() ? 'User object exists' : 'No user object'}<br>
+                <br>
+                <strong>Pages Updated:</strong><br>
+                ✅ courses.html - auth-utils.js added<br>
+                ✅ certificate/index.html - auth-utils.js added<br>
+                ✅ projects.html - auth-utils.js added<br>
+                ✅ roadmap.html - auth-utils.js added<br>
+                ✅ contact.html - auth-utils.js added<br>
+                ✅ index.html - already had auth-utils.js<br>
+                ✅ profile.html - already had auth-utils.js
+            `;
+            
+            debugDiv.innerHTML = debugInfo;
+        }
+
+        function clearAuth() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        // Auto-check status on page load
+        window.addEventListener('load', () => {
+            checkAuthStatus();
+        });
+    </script>
+</body>
+</html>

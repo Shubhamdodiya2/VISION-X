@@ -1,0 +1,616 @@
+/* Roadmap Page Styles - Simplified without categories */
+
+/* ========== NAVBAR STYLES FROM style.css ========== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 10px;
+  height: 85px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  margin-left: 10px;
+}
+
+.navbar a {
+  color: black;
+  text-decoration: none;
+  margin: 10px 2px;
+  transition: color 0.3s;
+  display: flex;
+  position: relative;
+}
+
+.navbar .nav-links a {
+  /* color: #2c3e50; */
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-links a:nth-child(-n + 9)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1.5px;
+  width: 0%;
+  background-color: rgba(0, 0, 0, 0.889);
+  transition: width 0.3s ease;
+}
+
+.navbar .nav-links a:nth-child(-n + 9):hover::after {
+  width: 100%;
+}
+
+.navbar .btn.login {
+  border: 1px solid black;
+  display: inline-block;
+  box-sizing: border-box;
+  outline: none;
+  background-color: transparent;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .btn.login:hover {
+  background-color: black;
+  color: white;
+}
+
+.navbar .btn.signup {
+  border: 1px solid black;
+  display: inline-block;
+  box-sizing: border-box;
+  outline: none;
+  background-color: black;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: 500;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .btn.signup:hover {
+  background-color: white;
+  color: black;
+}
+
+.navbar .nav-links {
+  display: flex;
+  padding: 0 10px;
+  /* font-size: 0.9rem; */
+}
+
+/* ========== Dropdown Styles ========== */
+
+/* Parent */
+.nav-item {
+  list-style: none;
+  position: relative;
+}
+
+/* Dropdown container */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;   /* directly below parent */
+  left: 0;
+  background-color: #ffffff; /* white background */
+  min-width: 200px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  flex-direction: column; /* stack like list */
+  z-index: 1000;
+}
+
+/* Dropdown items */
+.dropdown a {
+  display: block;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+/* Hover effect */
+.dropdown a:hover {
+  background-color: #c880de72; /* light gray highlight */
+  padding-left: 20px;        /* slight indent */
+}
+
+/* Show dropdown on hover */
+.nav-item:hover .dropdown,
+.nav-item.show .dropdown {
+  display: flex;
+}
+
+/* Arrow rotation when active */
+.nav-item.show .arrow {
+  transform: rotate(180deg);
+}
+
+/* Arrow */
+.arrow {
+  font-size: 14px;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+/* ========== Mobile view ========== */
+@media (max-width: 768px) {
+  .dropdown {
+    position: static;
+    min-width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+    display: none;
+  }
+
+  .nav-item.show .dropdown {
+    display: flex;
+  }
+
+  .dropdown a {
+    border-bottom: 1px solid #eee;
+  }
+}
+
+/* Dark mode for navbar */
+body.dark .navbar {
+  background-color: rgba(24, 24, 24, 0.6);
+  border: 1px solid #444;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+body.dark .navbar h1,
+body.dark .navbar a {
+  color: #fff;
+}
+body.dark .navbar a.btn {
+  background-color: #222;
+  color: #fff;
+  border-color: #fff;
+}
+body.dark .navbar a.btn:hover {
+  background-color: #fff;
+  color: #222;
+}
+/* White underline for nav links in dark mode */
+body.dark .navbar .nav-links a::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: white;
+  transition: width 0.3s ease;
+  width: 0;
+}
+
+body.dark .navbar .nav-links a:hover::after,
+body.dark .navbar .nav-links a.active::after {
+  width: 100%;
+}
+body.dark .dropdown {
+  background-color: #333;
+  border: 1px solid #555;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .dropdown a {
+  color: #fff;
+  border-bottom-color: #555;
+}
+
+body.dark .dropdown a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+
+/* ========== END NAVBAR STYLES ========== */
+
+/* Filter Section */
+.filter-section {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  height: fit-content;
+  position: sticky;
+  top: 85px;
+  z-index: 100;
+}
+
+.filter-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  padding: 6px 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.search-box button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.search-box button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Projects Container */
+.projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 60vh;
+}
+
+.projects-container.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Roadmap Card */
+.roadmap-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: #03171f;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.roadmap-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #219EBC, #FFB4A2, #E5989B);
+  opacity: 0.8;
+}
+
+.roadmap-card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #219EBC;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+.roadmap-card h2::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #219EBC, #FFB4A2);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.roadmap-card:hover h2::after {
+  width: 80px;
+}
+
+.roadmap-card p {
+  color: #555;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.roadmap-card a {
+  color: #219EBC;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: linear-gradient(to right, rgba(33, 158, 188, 0.1), rgba(255, 180, 162, 0.1));
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(33, 158, 188, 0.2);
+}
+
+.roadmap-card a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(to right, rgba(33, 158, 188, 0.15), rgba(255, 180, 162, 0.15));
+  transition: width 0.3s ease;
+  z-index: -1;
+  border-radius: 9px;
+}
+
+.roadmap-card a:hover {
+  color: #037b86;
+  background: linear-gradient(to right, rgba(33, 158, 188, 0.2), rgba(255, 180, 162, 0.2));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 158, 188, 0.2);
+}
+
+.roadmap-card a:hover::before {
+  width: 100%;
+}
+
+.roadmap-card a::after {
+  content: "→";
+  transition: transform 0.3s ease;
+}
+
+.roadmap-card a:hover::after {
+  transform: translateX(4px);
+}
+
+/* Back to Top Button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+
+.back-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top-btn:hover {
+  background: #34495e;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Error and No Results States */
+.error-message, .no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.error-message h3, .no-results h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.error-message p, .no-results p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Dark Mode Styles */
+body.dark .filter-section {
+  background: rgba(42, 42, 42, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .search-box {
+  background: #333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .search-box input {
+  color: white;
+}
+
+body.dark .search-box input::placeholder {
+  color: #aaa;
+}
+
+body.dark .search-box button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .back-to-top-btn {
+  background: #2c3e50;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .back-to-top-btn:hover {
+  background: #34495e;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .roadmap-card {
+  background: linear-gradient(135deg, rgba(42, 42, 42, 0.9) 0%, rgba(42, 42, 42, 0.7) 100%);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #e0e3e7;
+}
+
+body.dark .roadmap-card:hover {
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+body.dark .roadmap-card h2 {
+  color: #64b5f6;
+}
+
+body.dark .roadmap-card h2::after {
+  background: linear-gradient(90deg, #64b5f6, #bb86fc);
+}
+
+body.dark .roadmap-card p {
+  color: #bbb;
+}
+
+body.dark .roadmap-card a {
+  background: linear-gradient(to right, rgba(100, 181, 246, 0.1), rgba(187, 134, 252, 0.1));
+  color: #64b5f6;
+  border-color: rgba(100, 181, 246, 0.2);
+}
+
+body.dark .roadmap-card a::before {
+  background: linear-gradient(to right, rgba(100, 181, 246, 0.15), rgba(187, 134, 252, 0.15));
+}
+
+body.dark .roadmap-card a:hover {
+  color: #42a5f5;
+  background: linear-gradient(to right, rgba(100, 181, 246, 0.2), rgba(187, 134, 252, 0.2));
+  box-shadow: 0 4px 12px rgba(100, 181, 246, 0.25);
+}
+
+body.dark .error-message h3, body.dark .no-results h3 {
+  color: white;
+}
+
+body.dark .error-message, body.dark .no-results {
+  color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-section {
+    padding: 8px 0;
+  }
+  
+  .filter-container {
+    padding: 0 15px;
+  }
+  
+  .search-box {
+    max-width: none;
+  }
+  
+  .projects-container.grid-view {
+    grid-template-columns: 1fr;
+    padding: 30px 15px;
+  }
+  
+  .roadmap-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-section {
+    padding: 6px 0;
+  }
+  
+  .filter-container {
+    padding: 0 10px;
+  }
+  
+  .projects-container {
+    padding: 20px 10px;
+  }
+  
+  .roadmap-card {
+    padding: 18px;
+  }
+  
+  .roadmap-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  .roadmap-card p {
+    font-size: 0.9rem;
+  }
+  
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}

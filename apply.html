@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apply Now | Vision X.</title>
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/utils.css">
+  <link rel="stylesheet" href="./src/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #fff3e0);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 2.5rem 2rem;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .form-container:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.3rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #2196f3;
+      outline: none;
+    }
+
+    button {
+      background-color: #2196f3;
+      color: #fff;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1976d2;
+    }
+
+    .success-message {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+   <div class="navbar">
+    <h1><a href="./">
+        <img id="navbar-logo" width="80px" src="./assets/images/logo-nav-light.png" alt="logo Vision X">
+
+        <br>Vision X</a>
+    </h1>
+    <div class="nav-links align-items-center">
+      
+      <a href="index.html">Home</a>
+
+      <!-- dropDown 1 - About → About Us, Campus Ambassador-->
+      <li class="nav-item">
+        <a href="#" class="dropdown-toggle">About <i class="fa-solid fa-chevron-down arrow"></i></a>
+        <div class="dropdown">
+          <a href="about.html">About Us</a>
+        </div>
+      </li> 
+      <!--dropDown 2 - Programs → Courses, Internship, Services -->
+      <li class="nav-item">
+        <a href="#" class="dropdown-toggle">Programs <i class="fa-solid fa-chevron-down arrow"></i></a>
+        <div class="dropdown">
+          <a href="courses.html">Courses</a>
+        </div>
+      </li>
+      <a href="./certificate/">Certificates</a> 
+      <a href="projects.html">Projects</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="contact.html">Contact</a>
+      <!-- Navbar -->
+      <div id="authSection">
+        <a href="./login.html" class="btn login">Log In</a>
+        <a href="./signup.html" class="btn signup">Sign Up</a>
+      </div>
+
+      <div id="userSection" style="display: none; align-items: center; gap: 10px;">
+        <button id="logoutBtn" class="btn login">Logout</button>
+        <a href="profile.html" title="Your Profile">
+          <img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Profile" width="30"
+            style="border-radius: 50%;" />
+        </a>
+      </div>
+    </div>
+    <div class="nav-toggle align-items-center justify-content-center" onclick="toggleNav()">
+      <svg viewBox="0 0 18 18" id="navbar-barger-logo" class="">
+        <polyline id="globalnav-menutrigger-bread-bottom" fill="none" stroke="currentColor" stroke-width="1.2"
+          stroke-linecap="round" stroke-linejoin="round" points="2 12, 16 12"
+          class="globalnav-menutrigger-bread globalnav-menutrigger-bread-bottom"></polyline>
+        <polyline id="globalnav-menutrigger-bread-top" fill="none" stroke="currentColor" stroke-width="1.2"
+          stroke-linecap="round" stroke-linejoin="round" points="2 5, 16 5"
+          class="globalnav-menutrigger-bread globalnav-menutrigger-bread-top"></polyline>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="navbar-x-logo" class="bi bi-x-lg d-none"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+      </svg>
+
+
+    </div>
+  </div>
+  <div class="form-container">
+    <h2>Apply for Internship</h2>
+    <form id="internship-form" novalidate>
+      <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <div class="error-message" id="email-error">Please enter a valid email address.</div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" required>
+        <div class="error-message" id="phone-error">Enter a valid phone number (10–13 digits).</div>
+      </div>
+      <div class="form-group">
+        <label for="course">Select Internship Course:</label>
+        <select id="course" required>
+          <option value="">Loading...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Why are you applying?</label>
+        <textarea id="message" rows="4" required></textarea>
+      </div>
+      <button type="submit">Submit Application</button>
+      <p class="success-message" id="success-msg" style="display: none;">Form submitted successfully! Redirecting to home...</p>
+    </form>
+  </div>
+
+  <script>
+    const dropdown = document.getElementById("course");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCourse = urlParams.get("course");
+
+    async function loadCourses() {
+      try {
+        const res = await fetch("./src/data/internship.json");
+        if (!res.ok) throw new Error("Failed to load internships");
+
+        const data = await res.json();
+        dropdown.innerHTML = '<option value="">-- Select a Course --</option>';
+
+        data.forEach((item) => {
+          const option = document.createElement("option");
+          option.value = item.title;
+          option.textContent = item.title;
+          dropdown.appendChild(option);
+        });
+
+        if (selectedCourse) {
+          dropdown.value = selectedCourse;
+        }
+      } catch (err) {
+        dropdown.innerHTML = '<option value="">Error loading courses</option>';
+        console.error(err);
+      }
+    }
+
+    function validateEmail(email) {
+      const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      return pattern.test(email.toLowerCase());
+    }
+
+    function validatePhone(phone) {
+      const pattern = /^\d{10,13}$/;
+      return pattern.test(phone);
+    }
+
+    document.getElementById("internship-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const emailError = document.getElementById("email-error");
+      const phoneError = document.getElementById("phone-error");
+
+      let valid = true;
+
+      // Email validation
+      if (!validateEmail(email)) {
+        emailError.style.display = "block";
+        valid = false;
+      } else {
+        emailError.style.display = "none";
+      }
+
+      // Phone validation
+      if (!validatePhone(phone)) {
+        phoneError.style.display = "block";
+        valid = false;
+      } else {
+        phoneError.style.display = "none";
+      }
+
+      if (valid) {
+        document.getElementById("success-msg").style.display = "block";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 2000);
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", loadCourses);
+  </script>
+      <script src="./src/js/hero-section.js"></script>
+    <script src="./src/js/navbar.js"></script>
+    <script src="./src/js/slider.js"></script>
+    <script src="./src/js/scrollToTop.js"></script>
+    <script src="./src/js/utils.js"></script>
+</body>
+</html>

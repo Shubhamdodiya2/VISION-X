@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python for Beginners - Vision X</title>
+  <link rel="stylesheet" href="./src/css/utils.css">
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <style>
+    .course-container {
+      max-width: 1200px;
+      margin: 80px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 30px;
+    }
+    
+    .course-sidebar {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    
+    .course-header {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .course-header img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .progress-container {
+      background: #e9ecef;
+      height: 8px;
+      border-radius: 4px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: #6c5ce7;
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    .module-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .module-item {
+      padding: 12px 15px;
+      border-left: 3px solid transparent;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .module-item:hover {
+      background: #e9ecef;
+    }
+    
+    .module-item.active {
+      border-left-color: #6c5ce7;
+      background: #e9ecef;
+    }
+    
+    .module-item.completed {
+      color: #6c5ce7;
+    }
+    
+    .module-item.completed .module-title::before {
+      content: "✓ ";
+      color: #6c5ce7;
+    }
+    
+    .module-item.has-children .module-title::after {
+      content: " ▼";
+      float: right;
+      transition: transform 0.2s ease;
+    }
+    
+    .module-item.has-children.expanded .module-title::after {
+      transform: rotate(180deg);
+    }
+    
+    .sub-module-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #f1f3f4;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+    
+    .sub-module-list.expanded {
+      max-height: 500px;
+    }
+    
+    .sub-module-item {
+      padding: 8px 15px 8px 25px;
+      border-left: 2px solid transparent;
+      margin-bottom: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      position: relative;
+    }
+    
+    .sub-module-item:hover {
+      background: #e8eaf0;
+    }
+    
+    .sub-module-item.active {
+      border-left-color: #6c5ce7;
+      background: #e8eaf0;
+    }
+    
+    .sub-module-item.completed {
+      color: #6c5ce7;
+    }
+    
+    .sub-module-item.completed .sub-module-title::before {
+      content: "✓ ";
+      color: #6c5ce7;
+      font-size: 12px;
+    }
+    
+    .video-container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    .video-player {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background: #000;
+      min-height: 400px;
+    }
+    
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      border-radius: 8px;
+      color: #6c757d;
+      font-size: 18px;
+    }
+    
+    .video-info h2 {
+      margin-bottom: 10px;
+      color: #343a40;
+    }
+    
+    .video-info p {
+      color: #6c757d;
+      line-height: 1.6;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .btn-primary {
+      background: #6c5ce7;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+      background: #5649c9;
+    }
+    
+    .btn-primary:disabled {
+      background: #adb5bd;
+      cursor: not-allowed;
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: #6c5ce7;
+      border: 1px solid #6c5ce7;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-outline:hover {
+      background: #6c5ce7;
+      color: white;
+    }
+    
+    .certificate-notice {
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 4px;
+    }
+    
+    .certificate-locked {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 4px;
+    }
+    
+    @media (max-width: 900px) {
+      .course-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .course-sidebar {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    /* Footer Styles */
+    .footer {
+      background: #000;
+      color: #fff;
+      padding: 20px 0;
+      font-family: "Poppins", sans-serif;
+      width: 100% !important;
+      margin: 0 !important;
+      position: relative;
+      left: 0;
+      right: 0;
+      max-width: none !important;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 20px;
+      max-width: none !important;
+    }
+
+    .footer-left {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .footer-logo img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .footer-left h2 {
+      font-size: 2.5rem;
+    }
+
+    .footer-title {
+      font-weight: bold;
+      font-size: 1.6rem;
+      margin: 15px 0 15px;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      background: #121213;
+      border-radius: 50%;
+      color: #fff;
+      text-align: center;
+      margin-right: 10px;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: #161618;
+      transform: translateY(-3px);
+    }
+
+    .footer-middle {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      margin-left: 1.5rem;
+    }
+
+    .footer-middle h3 {
+      margin-bottom: 15px;
+      font-size: 1.7rem;
+      color: #f7f7fc;
+    }
+
+    .footer-detail a {
+      margin: 8px 0;
+      color: rgb(179, 179, 179);
+      font-size: 1rem;
+    }
+
+    .footer-detail a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    .footer-middle i {
+      margin-right: 8px;
+    }
+
+    .fright {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .fright form img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 15px;
+      font-size: 0.9rem;
+      color: #bbb;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .social-icons {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body id="main-body" class="overflow-x-hidden">
+  <div class="loader-track" id="loader-track">
+    <div class="loader-circle">
+      <div class="loader-dot"></div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <h1><a href="./">
+        <img id="navbar-logo" width="80px" src="logo-vision_X.png" alt="logo Vision x">
+        <br>Vision X</a>
+    </h1>
+    <div class="nav-links align-items-center">
+      <a href="index.html" data-translate="navbar.home">Home</a>
+      <a href="about.html" data-translate="navbar.about">About</a> 
+      <a href="courses.html" data-translate="navbar.courses">Courses</a>
+      <a href="./certificate/index.html" data-translate="navbar.certificates">Certificates</a> 
+      <a href="projects.html" data-translate="navbar.projects">Projects</a>
+      <a href="contact.html" data-translate="navbar.contact">Contact</a>
+      
+      <div id="authSection">
+        <a href="./login.html" class="btn login" data-translate="navbar.login">Log In</a>
+        <a href="./signup.html" class="btn signup" data-translate="navbar.signup">Sign Up</a>
+      </div>
+
+      <div id="userSection" style="display: none; align-items: center; gap: 10px;">
+        <button id="logoutBtn" class="btn login" data-translate="navbar.logout">Logout</button>
+        <a href="profile.html" title="Your Profile">
+          <img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Profile" width="30"
+            style="border-radius: 50%;" />
+        </a>
+      </div>
+    </div>
+    <div class="nav-toggle align-items-center justify-content-center" onclick="toggleNav()">
+      <svg viewBox="0 0 18 18" id="navbar-barger-logo" class="">
+        <polyline id="globalnav-menutrigger-bread-bottom" fill="none" stroke="currentColor" stroke-width="1.2"
+          stroke-linecap="round" stroke-linejoin="round" points="2 12, 16 12"
+          class="globalnav-menutrigger-bread globalnav-menutrigger-bread-bottom"></polyline>
+        <polyline id="globalnav-menutrigger-bread-top" fill="none" stroke="currentColor" stroke-width="1.2"
+          stroke-linecap="round" stroke-linejoin="round" points="2 5, 16 5"
+          class="globalnav-menutrigger-bread globalnav-menutrigger-bread-top"></polyline>
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="navbar-x-logo" class="bi bi-x-lg d-none"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="course-container">
+    <div class="course-sidebar">
+      <div class="course-header">
+        <div style="margin-bottom: 15px;">
+          <label for="course-select" style="display: block; margin-bottom: 5px; font-weight: bold; color: #6c5ce7;">Select Course:</label>
+          <select id="course-select" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; background: white;">
+            <option value="default">Python for Beginners (Default)</option>
+          </select>
+        </div>
+        <img id="course-thumbnail" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png" alt="Course Thumbnail">
+        <h2 id="course-title">Python for Beginners</h2>
+        <p id="course-instructor">Instructor: Shardha Mem</p>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p id="progress-text">0% Complete</p>
+        <button id="reset-progress-btn" class="btn-outline" style="width: 100%; margin-top: 10px; font-size: 12px;">
+          <i class="fas fa-refresh"></i> Reset Progress
+        </button>
+      </div>
+      
+      <ul class="module-list" id="module-list">
+        <!-- Modules will be dynamically generated -->
+      </ul>
+      
+      <div id="certificate-status">
+        <!-- Will be populated by JavaScript -->
+      </div>
+    </div>
+    
+    <div class="video-container">
+      <div class="video-player" id="video-player">
+        <div class="video-placeholder" id="video-placeholder">
+          Select a lesson from the sidebar to begin
+        </div>
+      </div>
+      
+      <div class="video-info">
+        <h2 id="video-title">Welcome to Python Programming Course</h2>
+        <p id="video-description">Please select a lesson from the sidebar to start learning.</p>
+      </div>
+      
+      <div class="navigation-buttons">
+        <button class="btn-outline" id="prev-btn" disabled>Previous Lesson</button>
+        <button class="btn-primary" id="next-btn" disabled>Next Lesson</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="social">
+      <h1>
+        <img
+          width="80px"
+          src="white-logo.png"
+          alt="logo Vision X"
+        />
+        <br />Vision X
+      </h1>
+      <h3>Social Media</h3>
+      <div class="all-social-links">
+        <a target="_blank" href="https://linkedin.com/company/vision-x">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            data-name="Layer 1"
+            viewBox="0 0 100 100"
+            id="linkedin"
+          >
+            <path
+              d="M55.35,44.17h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11ZM50.8,3.77A45.67,45.67,0,1,0,96.47,49.44,45.72,45.72,0,0,0,50.8,3.77ZM39.38,70a.77.77,0,0,1-.77.76h-8.8a.76.76,0,0,1-.76-.76V40.43a.76.76,0,0,1,.76-.77h8.8a.77.77,0,0,1,.77.77ZM33.9,35.71a5.53,5.53,0,1,1,5.53-5.53A5.52,5.52,0,0,1,33.9,35.71ZM76.62,70a.77.77,0,0,1-.77.76h-8.8a.76.76,0,0,1-.76-.76V54.11c0-4.18-1.49-7-5.23-7a5.65,5.65,0,0,0-5.3,3.78,7.12,7.12,0,0,0-.34,2.52V70a.77.77,0,0,1-.77.77h-8.8a.76.76,0,0,1-.76-.77c0-4.22.11-24.71,0-29.53a.76.76,0,0,1,.76-.77h8.78a.76.76,0,0,1,.77.77v3.63a10.26,10.26,0,0,1,9.31-5.13c6.79,0,11.89,4.44,11.89,14Zm-21.2-25.8v-.11l-.07.11Zm-.07,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Zm0,0h.07v-.11Z"
+            ></path>
+          </svg>
+        </a>
+        <a target="_blank" href="#">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            data-name="Instagram w/circle"
+            viewBox="0 0 19.2 19.2"
+            id="instagram"
+          >
+            <path
+              d="M13.498 6.651a1.656 1.656 0 0 0-.95-.949 2.766 2.766 0 0 0-.928-.172c-.527-.024-.685-.03-2.02-.03s-1.493.006-2.02.03a2.766 2.766 0 0 0-.929.172 1.656 1.656 0 0 0-.949.95 2.766 2.766 0 0 0-.172.928c-.024.527-.03.685-.03 2.02s.006 1.493.03 2.02a2.766 2.766 0 0 0 .172.929 1.656 1.656 0 0 0 .95.949 2.766 2.766 0 0 0 .928.172c.527.024.685.03 2.02.03s1.493-.006 2.02-.03a2.766 2.766 0 0 0 .929-.172 1.656 1.656 0 0 0 .949-.95 2.766 2.766 0 0 0 .172-.928c.024-.527.03-.685.03-2.02s-.006-1.493-.03-2.02a2.766 2.766 0 0 0-.172-.929zM9.6 12.168A2.568 2.568 0 1 1 12.168 9.6 2.568 2.568 0 0 1 9.6 12.168zm2.669-4.637a.6.6 0 1 1 .6-.6.6.6 0 0 1-.6.6z"
+            ></path>
+            <circle cx="9.6" cy="9.6" r="1.667"></circle>
+            <path
+              d="M9.6 0a9.6 9.6 0 1 0 9.6 9.6A9.6 9.6 0 0 0 9.6 0zm4.97 11.662a3.67 3.67 0 0 1-.233 1.213 2.556 2.556 0 0 1-1.462 1.462 3.67 3.67 0 0 1-1.213.233c-.534.024-.704.03-2.062.03s-1.528-.006-2.062-.03a3.67 3.67 0 0 1-1.213-.233 2.556 2.556 0 0 1-1.462-1.462 3.67 3.67 0 0 1-.233-1.213c-.024-.534-.03-.704-.03-2.062s.006-1.528.03-2.062a3.67 3.67 0 0 1 .233-1.213 2.556 2.556 0 0 1 1.462-1.462 3.67 3.67 0 0 1 1.213-.233c.534-.024.704-.03 2.062-.03s1.528.006 2.062.03a3.67 3.67 0 0 1 1.213.233 2.556 2.556 0 0 1 1.462 1.462 3.67 3.67 0 0 1 .233 1.213c.024.534.03.704.03 2.062s-.006 1.528-.03 2.062z"
+            ></path>
+          </svg>
+        </a>
+        <a target="_blank" href="#">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            data-name="Layer 1"
+            viewBox="0 0 100 100"
+            id="facebook"
+          >
+            <path
+              d="M50.8,3.57A45.75,45.75,0,1,0,96.54,49.32,45.8,45.8,0,0,0,50.8,3.57ZM63.49,30.71a.69.69,0,0,1-.69.69H57.3a2.45,2.45,0,0,0-2.45,2.44V39.6h7.83a.69.69,0,0,1,.68.75l-.68,8.12a.69.69,0,0,1-.69.63H54.85V76.05a.69.69,0,0,1-.69.69H44.31a.69.69,0,0,1-.69-.69V49.1H38.7a.69.69,0,0,1-.69-.69V40.29a.69.69,0,0,1,.69-.69h4.92V31.78A9.88,9.88,0,0,1,53.5,21.9h9.3a.69.69,0,0,1,.69.69Z"
+            ></path>
+          </svg>
+        </a>
+        <a target="_blank" href="#">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="512"
+            height="512"
+            fill="none"
+            viewBox="0 0 512 512"
+            id="twitter"
+          >
+            <g clip-path="url(#clip0_84_15697)">
+              <rect width="512" height="512" fill="#000" rx="60"></rect>
+              <path
+                fill="#fff"
+                d="M355.904 100H408.832L293.2 232.16L429.232 412H322.72L239.296 302.928L143.84 412H90.8805L214.56 270.64L84.0645 100H193.28L268.688 199.696L355.904 100ZM337.328 380.32H366.656L177.344 130.016H145.872L337.328 380.32Z"
+              ></path>
+            </g>
+            <defs>
+              <clipPath id="clip0_84_15697">
+                <rect width="512" height="512" fill="#fff"></rect>
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="contact">
+      <h3>Contact Us</h3>
+      <p>
+        <a href="https://jguni.in/">
+          <i class="fa-solid fa-envelope" id="envelope-icon"></i>Jguni.in</a>
+      </p>
+      <br />
+      <p>
+        <a href="tel:+9188xxxxxx89"
+          ><i class="fa-solid fa-phone" id="call-icon"></i>+91 88xxxxxx89</a
+        >
+      </p>
+    </div>
+    <div class="form">
+      <img src="boy.png" alt="Vision X Logo">
+    </div>
+    <div class="copy">
+      <p>Copyright &copy; 2024 - 2025 Vision X. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Load courses from localStorage or use default
+    function loadCourseData() {
+      const savedCourses = localStorage.getItem('courses');
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get('course') || 'default';
+      
+      if (savedCourses && courseId !== 'default') {
+        try {
+          const courses = JSON.parse(savedCourses);
+          const selectedCourse = courses.find(course => course.id == courseId);
+          if (selectedCourse && selectedCourse.modules) {
+            return selectedCourse.modules;
+          }
+        } catch (error) {
+          console.error('Error loading course data:', error);
+        }
+      }
+      
+      // Return default Python programming course
+      return [
+      {
+        id: 'Variables & Data Types',
+        title: 'Variables & Data Types',
+        description: 'Learn about variables and data types in Python.',
+        videoUrl: 'https://www.youtube.com/watch?v=t2_Q2BRzeEE&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0',
+        videoId: 't2_Q2BRzeEE',
+        duration: '1:22:20'
+      },
+      {
+        id: 'Strings & Conditional Statements',
+        title: 'Strings & Conditional Statements',
+        description: 'Learn about strings and conditional statements in Python.',
+        videoUrl: 'https://www.youtube.com/watch?v=lIId8IDP6TU&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&index=2', // Replace with actual video URL
+        videoId: 'lIId8IDP6TU',
+        duration: '55:40'
+      },
+      {
+        id: 'List & Tuple in Python',
+        title: 'List & Tuple in Python',
+        description: 'List & Tuple in Python',
+        videoUrl: 'https://www.youtube.com/watch?v=qVyvmzFxF_o&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&index=3', // Replace with actual video URL
+        videoId: 'qVyvmzFxF_o',
+        duration: '41:46'
+      },
+      {
+        id: 'Dictionary & Set in Python',
+        title: 'Dictionary & Set in Python',
+        description: 'Dictionary & Set in Python',
+        videoUrl: 'https://www.youtube.com/watch?v=078tYSD7K8E&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&index=4', // Replace with actual video URL
+        videoId: '078tYSD7K8E',
+        duration: '54:31'
+      },
+      {
+        id: 'Loops in Python',
+        title: 'Loops in Python',
+        description: 'Loops in Python',
+        videoUrl: 'https://www.youtube.com/watch?v=S73thl0AyFU&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&index=5', // Replace with actual video URL
+        videoId: 'S73thl0AyFU',
+        duration: '1:03:50'
+      },
+      {
+        id: 'Functions & Recursion in Python',
+        title: 'Functions & Recursion in Python',
+        description: 'Functions & Recursion in Python',
+        videoUrl: 'https://www.youtube.com/watch?v=OvTH-7ESoRA&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&index=6',
+        videoId: 'Y0GjLv_n0LM',
+        duration: '1:01:48',
+        
+      },
+      {
+        id: 'control',
+        title: 'Control Statements',
+        description: 'Learn how to control program flow using conditional statements and loops.',
+        videoUrl: 'https://www.youtube.com/watch?v=e4iixLJdbiw&list=PLigg1FdU2_N5PwgC2vBusEXuKUtCk95aD&index=28',
+        videoId: 'e4iixLJdbiw',
+        duration: '22:40',
+       
+      },
+      {
+        id: 'File Input/Output in Python',
+        title: 'File Input/Output in Python',
+        description: 'File Input/Output in Python',
+        videoUrl: 'https://www.youtube.com/watch?v=jU0cndZziO0&list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&index=7', // Replace with actual video URL
+        videoId: 'jU0cndZziO0',
+        duration: '50:47'
+      }
+      ];
+    }
+
+    // Load course data
+    const courseModules = loadCourseData();
+    
+    // Get course information
+    function getCourseInfo() {
+      const savedCourses = localStorage.getItem('courses');
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get('course') || 'default';
+      
+      if (savedCourses && courseId !== 'default') {
+        try {
+          const courses = JSON.parse(savedCourses);
+          const selectedCourse = courses.find(course => course.id == courseId);
+          if (selectedCourse) {
+            return {
+              title: selectedCourse.title,
+              instructor: selectedCourse.instructor,
+              thumbnail: selectedCourse.thumbnail,
+              description: selectedCourse.description
+            };
+          }
+        } catch (error) {
+          console.error('Error loading course info:', error);
+        }
+      }
+      
+      // Return default course info
+      return {
+        title: 'Python for Beginners',
+        instructor: 'Shardha Mem',
+        thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png',
+        description: 'Learn Python programming from scratch'
+      };
+    }
+    
+    const courseInfo = getCourseInfo();
+
+    // Initialize course progress - Reset completion data for fresh start
+    let currentModule = 0;
+    let currentSubModule = null;
+    localStorage.removeItem('python_course_completed'); // Clear any existing completion data
+    let completedModules = []; // Start with empty completion array
+    let completedSubModules = []; // Track completed sub-modules
+    let videoWatched = false;
+    let autoCompleteTimer = null;
+    let player = null;
+    let isYouTubePlayerReady = false;
+    let expandedModules = {}; // Track which parent modules are expanded
+
+    // DOM elements
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const moduleList = document.getElementById('module-list');
+    const videoPlayer = document.getElementById('video-player');
+    const videoPlaceholder = document.getElementById('video-placeholder');
+    const videoTitle = document.getElementById('video-title');
+    const videoDescription = document.getElementById('video-description');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const certificateStatus = document.getElementById('certificate-status');
+    const resetProgressBtn = document.getElementById('reset-progress-btn');
+
+    // Generate module list HTML
+    function generateModuleList() {
+      moduleList.innerHTML = '';
+      
+      courseModules.forEach((module, index) => {
+        const moduleItem = document.createElement('li');
+        moduleItem.className = 'module-item';
+        moduleItem.setAttribute('data-module', index);
+        
+        if (module.isParent && module.children) {
+          moduleItem.classList.add('has-children');
+          if (expandedModules[index]) {
+            moduleItem.classList.add('expanded');
+          }
+          
+          moduleItem.innerHTML = `
+            <div class="module-title">${module.title}</div>
+            <ul class="sub-module-list ${expandedModules[index] ? 'expanded' : ''}">
+              ${module.children.map((child, childIndex) => `
+                <li class="sub-module-item" data-module="${index}" data-sub-module="${childIndex}">
+                  <div class="sub-module-title">${child.title}</div>
+                </li>
+              `).join('')}
+            </ul>
+          `;
+        } else {
+          moduleItem.innerHTML = `
+            <div class="module-title">${module.title}</div>
+          `;
+        }
+        
+        moduleList.appendChild(moduleItem);
+      });
+      
+      // Add event listeners
+      addModuleEventListeners();
+    }
+
+    // Add event listeners to modules
+    function addModuleEventListeners() {
+      const moduleItems = document.querySelectorAll('.module-item');
+      
+      moduleItems.forEach((item, index) => {
+        const module = courseModules[index];
+        
+        if (module.isParent && module.children) {
+          // Handle parent module click (expand/collapse)
+          item.addEventListener('click', (e) => {
+            if (e.target.classList.contains('module-title')) {
+              toggleModuleExpansion(index);
+            }
+          });
+          
+          // Handle sub-module clicks
+          const subModules = item.querySelectorAll('.sub-module-item');
+          subModules.forEach((subItem, subIndex) => {
+            subItem.addEventListener('click', () => {
+              loadSubModule(index, subIndex);
+            });
+          });
+        } else {
+          // Handle regular module click
+          item.addEventListener('click', () => {
+            loadModule(index);
+          });
+        }
+      });
+    }
+
+    // Toggle module expansion
+    function toggleModuleExpansion(moduleIndex) {
+      expandedModules[moduleIndex] = !expandedModules[moduleIndex];
+      generateModuleList();
+    }
+
+    // Load a sub-module
+    function loadSubModule(parentIndex, subIndex) {
+      currentModule = parentIndex;
+      currentSubModule = subIndex;
+      const module = courseModules[parentIndex].children[subIndex];
+      videoWatched = false;
+      
+      videoTitle.textContent = module.title;
+      videoDescription.textContent = module.description;
+      
+      // Check if this sub-module has a YouTube video
+      if (module.videoId) {
+        loadYouTubeVideo(module);
+      } else {
+        // Fallback to simulated video
+        loadSimulatedVideo(module);
+      }
+      
+      updateProgress();
+      updateModuleStates();
+    }
+
+    // Calculate total progress including sub-modules
+    function calculateTotalProgress() {
+      let totalItems = 0;
+      let completedItems = 0;
+      
+      courseModules.forEach((module, index) => {
+        if (module.isParent && module.children) {
+          totalItems += module.children.length;
+          module.children.forEach((child, childIndex) => {
+            const subModuleKey = `${index}-${childIndex}`;
+            if (completedSubModules.includes(subModuleKey)) {
+              completedItems++;
+            }
+          });
+        } else {
+          totalItems++;
+          if (completedModules.includes(index)) {
+            completedItems++;
+          }
+        }
+      });
+      
+      return { total: totalItems, completed: completedItems };
+    }
+
+    // Update progress display
+    function updateProgress() {
+      const progressData = calculateTotalProgress();
+      const progress = (progressData.completed / progressData.total) * 100;
+      progressBar.style.width = `${progress}%`;
+      progressText.textContent = `${Math.round(progress)}% Complete`;
+      
+      updateModuleStates();
+      
+      // Auto-show next button for completed modules/sub-modules
+      const isCurrentCompleted = currentSubModule !== null 
+        ? completedSubModules.includes(`${currentModule}-${currentSubModule}`)
+        : completedModules.includes(currentModule);
+        
+      if (isCurrentCompleted) {
+        nextBtn.style.display = 'block';
+      } else {
+        nextBtn.style.display = 'none';
+      }
+      
+      // Update certificate status
+      if (progressData.completed === progressData.total) {
+        certificateStatus.innerHTML = `
+          <div class="certificate-notice">
+            <h3>Congratulations!</h3>
+            <p>You've completed all modules. You can now download your certificate.</p>
+            <a href="./certificate/index.html" class="btn-primary">Get Certificate</a>
+          </div>
+        `;
+      } else {
+        certificateStatus.innerHTML = `
+          <div class="certificate-locked">
+            <h3>Certificate Locked</h3>
+            <p>Complete all ${progressData.total} lessons to unlock your certificate.</p>
+            <p>Progress: ${progressData.completed}/${progressData.total} lessons completed</p>
+          </div>
+        `;
+      }
+    }
+
+    // Update module states in the UI
+    function updateModuleStates() {
+      const moduleItems = document.querySelectorAll('.module-item');
+      
+      moduleItems.forEach((item, index) => {
+        const module = courseModules[index];
+        
+        if (module.isParent && module.children) {
+          // Check if all sub-modules are completed
+          const allSubModulesCompleted = module.children.every((child, childIndex) => {
+            return completedSubModules.includes(`${index}-${childIndex}`);
+          });
+          
+          if (allSubModulesCompleted) {
+            item.classList.add('completed');
+          } else {
+            item.classList.remove('completed');
+          }
+          
+          // Update sub-module states
+          const subModules = item.querySelectorAll('.sub-module-item');
+          subModules.forEach((subItem, subIndex) => {
+            const subModuleKey = `${index}-${subIndex}`;
+            
+            if (completedSubModules.includes(subModuleKey)) {
+              subItem.classList.add('completed');
+            } else {
+              subItem.classList.remove('completed');
+            }
+            
+            if (currentModule === index && currentSubModule === subIndex) {
+              subItem.classList.add('active');
+            } else {
+              subItem.classList.remove('active');
+            }
+          });
+        } else {
+          // Regular module
+          if (completedModules.includes(index)) {
+            item.classList.add('completed');
+          } else {
+            item.classList.remove('completed');
+          }
+          
+          if (currentModule === index && currentSubModule === null) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    // YouTube API callback
+    function onYouTubeIframeAPIReady() {
+      isYouTubePlayerReady = true;
+      console.log('YouTube API Ready');
+    }
+
+    // Load a module
+    function loadModule(moduleIndex) {
+      // Clear any existing timer
+      if (autoCompleteTimer) {
+        clearTimeout(autoCompleteTimer);
+      }
+      
+      currentModule = moduleIndex;
+      const module = courseModules[moduleIndex];
+      videoWatched = false;
+      
+      videoTitle.textContent = module.title;
+      videoDescription.textContent = module.description;
+      
+      // Check if this module has a YouTube video
+      if (module.videoId) {
+        loadYouTubeVideo(module);
+      } else {
+        // Fallback to simulated video for modules without YouTube links
+        loadSimulatedVideo(module);
+      }
+      
+      updateProgress();
+    }
+
+    // Load YouTube video
+    function loadYouTubeVideo(module) {
+      videoPlaceholder.innerHTML = `
+        <div id="youtube-player-container" style="position: relative; width: 100%; height: 400px;">
+          <div id="youtube-player" style="width: 100%; height: 100%;"></div>
+        </div>
+      `;
+      
+      // Initialize YouTube player
+      if (isYouTubePlayerReady && typeof YT !== 'undefined') {
+        if (player) {
+          player.destroy();
+        }
+        
+        player = new YT.Player('youtube-player', {
+          height: '400',
+          width: '100%',
+          videoId: module.videoId,
+          playerVars: {
+            'playsinline': 1,
+            'rel': 0,
+            'modestbranding': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      } else {
+        // Fallback if YouTube API not ready
+        videoPlaceholder.innerHTML = `
+          <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <i class="fab fa-youtube" style="font-size: 48px; color: #ff0000; margin-bottom: 15px;"></i>
+            <p><strong>YouTube Video: ${module.title}</strong></p>
+            <p>Duration: ${module.duration}</p>
+            <a href="${module.videoUrl}" target="_blank" class="btn-primary" style="text-decoration: none; display: inline-block; margin-top: 15px;">
+              <i class="fab fa-youtube"></i> Watch on YouTube
+            </a>
+            <p><small>Loading YouTube player...</small></p>
+          </div>
+        `;
+        
+        // Retry loading after a delay
+        setTimeout(() => {
+          if (typeof YT !== 'undefined' && YT.Player) {
+            loadYouTubeVideo(module);
+          }
+        }, 1000);
+      }
+    }
+
+    // Load simulated video for modules without YouTube links
+    function loadSimulatedVideo(module) {
+      videoPlaceholder.innerHTML = `
+        <div style="text-align: center;">
+          <div id="video-simulator" style="cursor: pointer; padding: 20px; border: 2px dashed #6c5ce7; border-radius: 8px; background: #f8f9ff;">
+            <i class="fas fa-play-circle" style="font-size: 48px; margin-bottom: 15px; color: #6c5ce7;"></i>
+            <p><strong>Video: ${module.title}</strong></p>
+            <p>Duration: ${module.duration}</p>
+            <p><small>Click to start watching (auto-completes after 3 seconds)</small></p>
+          </div>
+          <div id="video-progress" style="display: none; margin-top: 15px;">
+            <div style="background: #e9ecef; height: 8px; border-radius: 4px; overflow: hidden;">
+              <div id="watch-progress" style="height: 100%; background: #6c5ce7; width: 0%; transition: width 0.3s ease;"></div>
+            </div>
+            <p id="watch-status" style="margin-top: 10px; color: #6c5ce7; font-weight: bold;">Watching...</p>
+          </div>
+        </div>
+      `;
+      
+      // Add click event to start watching
+      const videoSimulator = document.getElementById('video-simulator');
+      if (videoSimulator) {
+        videoSimulator.addEventListener('click', startWatching);
+      }
+    }
+
+    // YouTube player events
+    function onPlayerReady(event) {
+      console.log('YouTube Player Ready');
+    }
+
+    function onPlayerStateChange(event) {
+      // Video ended
+      if (event.data === YT.PlayerState.ENDED) {
+        console.log('Video ended - marking as complete');
+        autoCompleteCurrentModule();
+      }
+    }
+    
+    // Start watching video (simulated)
+    function startWatching() {
+      if (videoWatched || completedModules.includes(currentModule)) return;
+      
+      const videoProgress = document.getElementById('video-progress');
+      const watchProgress = document.getElementById('watch-progress');
+      const watchStatus = document.getElementById('watch-status');
+      const videoSimulator = document.getElementById('video-simulator');
+      
+      if (videoProgress && watchProgress && watchStatus) {
+        videoProgress.style.display = 'block';
+        videoSimulator.style.display = 'none';
+        
+        // Simulate watching progress
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += 2;
+          watchProgress.style.width = `${progress}%`;
+          
+          if (progress >= 100) {
+            clearInterval(progressInterval);
+            watchStatus.textContent = 'Completed! ✅';
+            autoCompleteCurrentModule();
+          }
+        }, 60); // 3 seconds total (100% / 60ms = ~1.67 seconds, but we'll stop at 100%)
+      }
+    }
+    
+    // Automatically mark current module as complete
+    function autoCompleteCurrentModule() {
+      if (currentSubModule !== null) {
+        // Mark sub-module as complete
+        const subModuleKey = `${currentModule}-${currentSubModule}`;
+        if (!completedSubModules.includes(subModuleKey)) {
+          completedSubModules.push(subModuleKey);
+          localStorage.setItem('python_course_sub_completed', JSON.stringify(completedSubModules));
+        }
+      } else {
+        // Mark regular module as complete
+        if (!completedModules.includes(currentModule)) {
+          completedModules.push(currentModule);
+          localStorage.setItem('python_course_completed', JSON.stringify(completedModules));
+        }
+      }
+      
+      updateProgress();
+      
+      // Show completion message
+      setTimeout(() => {
+        const watchStatus = document.getElementById('watch-status');
+        if (watchStatus) {
+          watchStatus.innerHTML = 'Lesson completed! <i class="fas fa-check-circle" style="color: #4caf50;"></i>';
+        }
+      }, 500);
+    }
+
+    // Reset all progress
+    function resetProgress() {
+      if (confirm('Are you sure you want to reset all progress? This action cannot be undone.')) {
+        localStorage.removeItem('python_course_completed');
+        localStorage.removeItem('python_course_sub_completed');
+        completedModules = [];
+        completedSubModules = [];
+        currentModule = 0;
+        currentSubModule = null;
+        updateProgress();
+        loadModule(0); // Reload the first module
+        
+        // Show reset confirmation
+        const resetBtn = document.getElementById('reset-progress-btn');
+        const originalText = resetBtn.innerHTML;
+        resetBtn.innerHTML = '<i class="fas fa-check"></i> Reset!';
+        resetBtn.style.background = '#4caf50';
+        resetBtn.style.color = 'white';
+        resetBtn.style.borderColor = '#4caf50';
+        
+        setTimeout(() => {
+          resetBtn.innerHTML = originalText;
+          resetBtn.style.background = '';
+          resetBtn.style.color = '';
+          resetBtn.style.borderColor = '';
+        }, 2000);
+      }
+    }
+
+    // Navigation event listeners
+    prevBtn.addEventListener('click', () => {
+      // Navigation logic for previous lesson
+      console.log('Previous button clicked');
+    });
+
+    nextBtn.addEventListener('click', () => {
+      // Navigation logic for next lesson
+      console.log('Next button clicked');
+    });
+
+    // Reset progress button
+    resetProgressBtn.addEventListener('click', resetProgress);
+
+    // Toggle navigation function
+    function toggleNav() {
+      const navLinks = document.querySelector('.nav-links');
+      const navToggle = document.querySelector('.nav-toggle');
+      
+      if (navLinks && navToggle) {
+        navLinks.classList.toggle('active');
+        navToggle.classList.toggle('open');
+      }
+    }
+
+    // Populate course dropdown
+    function populateCourseDropdown() {
+      const courseSelect = document.getElementById('course-select');
+      if (!courseSelect) return;
+      
+      // Clear existing options except default
+      courseSelect.innerHTML = '<option value="default">Python for Beginners (Default)</option>';
+      
+      const savedCourses = localStorage.getItem('courses');
+      if (savedCourses) {
+        try {
+          const courses = JSON.parse(savedCourses);
+          courses.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course.id;
+            option.textContent = `${course.title} - ${course.instructor}`;
+            courseSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error('Error loading courses for dropdown:', error);
+        }
+      }
+      
+      // Set current course as selected
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentCourseId = urlParams.get('course') || 'default';
+      courseSelect.value = currentCourseId;
+    }
+    
+    // Handle course selection change
+    function handleCourseChange() {
+      const courseSelect = document.getElementById('course-select');
+      if (!courseSelect) return;
+      
+      courseSelect.addEventListener('change', function() {
+        const selectedCourseId = this.value;
+        if (selectedCourseId === 'default') {
+          window.location.href = 'videopythone.html?course=default';
+        } else {
+          window.location.href = `videopythone.html?course=${selectedCourseId}`;
+        }
+      });
+    }
+
+    // Update course header with dynamic information
+    function updateCourseHeader() {
+      const courseThumbnail = document.getElementById('course-thumbnail');
+      const courseTitle = document.getElementById('course-title');
+      const courseInstructor = document.getElementById('course-instructor');
+      
+      if (courseThumbnail) courseThumbnail.src = courseInfo.thumbnail;
+      if (courseTitle) courseTitle.textContent = courseInfo.title;
+      if (courseInstructor) courseInstructor.textContent = `Instructor: ${courseInfo.instructor}`;
+    }
+
+    // Initialize the page
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.getElementById('loader-track').style.display = 'none';
+        populateCourseDropdown(); // Populate course dropdown
+        handleCourseChange(); // Set up course change handler
+        updateCourseHeader(); // Update course header with dynamic info
+        generateModuleList(); // Generate the module list
+        loadModule(0); // Load the first module by default
+      }, 2000);
+    });
+  </script>
+
+  <script src="./src/js/navbar.js"></script>
+  <script src="./src/js/utils.js"></script>
+  <script src="./src/js/auth.js"></script>
+</body>
+</html>
