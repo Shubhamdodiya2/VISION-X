@@ -7,10 +7,10 @@
     <title>User Profile</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="./src/css/style.css">
     <link rel="stylesheet" href="./src/css/utils.css">
-    <link rel="stylesheet" href="./src/css/responsive.css">
+    <link rel="stylesheet" href="./src/css/style.css">
     <link rel="stylesheet" href="./src/css/profile.css">
+    <link rel="stylesheet" href="./src/css/responsive.css">
 </head>
 <style>
     .profile-section {
@@ -488,23 +488,25 @@
         background: linear-gradient(90deg, #adaeae, #5d5d5eb9);
     }
 
-    .image{
+    .image {
         height: 50;
         width: 50;
     }
 
     /* Navbar Styles */
-    .nav-hamburger{
+    .nav-hamburger {
         cursor: pointer;
     }
-    .logo-container{
+
+    .logo-container {
         display: flex;
         justify-content: center;
         align-items: center;
         padding-left: 12px;
         margin: 10px 2px;
     }
-    #navbar-links{
+
+    #navbar-links {
         display: flex;
         align-items: center;
         gap: 2px;
@@ -520,7 +522,7 @@
             <a href="./"><img id="navbar-logo" width="80px" src="logo-vision_X.png" alt="logo Vision X"></a>
             <h1><a href="./">Vision X</a></h1>
         </div>
-        
+
         <div id="navbar-links" class="nav-links align-items-center">
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
@@ -529,7 +531,7 @@
             <a href="projects.html">Projects</a>
             <a href="roadmap.html">Roadmap</a>
             <a href="contact.html">Contact</a>
-            
+
             <!-- Auth Section -->
             <div id="authSection">
                 <a href="./login.html" class="btn login">Log In</a>
@@ -539,12 +541,12 @@
             <div id="userSection" style="display: none; align-items: center; gap: 10px;">
                 <button id="logoutBtn" class="btn login">Logout</button>
                 <a href="profile.html" title="Your Profile">
-                    <img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Profile" width="30"
-                        style="border-radius: 50%;" />
+                    <img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Profile"
+                        width="30" style="border-radius: 50%;" />
                 </a>
             </div>
         </div>
-        
+
         <div class="nav-toggle align-items-center justify-content-center" onclick="toggleNav()">
             <svg viewBox="0 0 18 18" id="navbar-barger-logo" class="nav-hamburger">
                 <polyline id="globalnav-menutrigger-bread-bottom" fill="none" stroke="currentColor" stroke-width="1.2"
@@ -561,7 +563,7 @@
             </svg>
         </div>
     </div>
-    <div class="content">
+    <div class="profile-container">
         <aside class="sidebar">
             <section class="profile-section font-poppins">
                 <div class="profile-card">
@@ -706,32 +708,32 @@
                 </a>
             </div>
         </div>
-        <div ID = "image" class="contact">
+        <div ID="image" class="contact">
             <h3>Contact Us</h3>
             <p><a href="https://jguni.in/">jguni.in</a></p>
             <p><a href="tel:+9188xxxxxx89">+91 88xxxxxx89</a></p>
         </div>
         <div class="form">
-        <img src="boy.png" alt="Vision X Logo">
-      </div>
-     
+            <img src="boy.png" alt="Vision X Logo">
+        </div>
+
         <div class="copy">
             <p>Copyright &copy; 2024 - 2025 Vision X. All rights reserved.</p>
         </div>
     </footer>
 
 
-  
+
     <script type="module" src="./src/js/firebase.js"></script>
     <script type="module" src="./src/js/auth.js"></script>
     <script type="module" src="./src/js/auth-utils.js"></script>
     <script src="./src/js/navbar.js"></script>
     <script src="./src/js/utils.js"></script>
     <script src="./src/js/profile.js"></script>
-    
+
     <script type="module">
         import { requireAuth } from './src/js/auth-utils.js';
-        
+
         // Wait for DOM to load, then check authentication
         document.addEventListener('DOMContentLoaded', () => {
             // Small delay to ensure auth state is loaded

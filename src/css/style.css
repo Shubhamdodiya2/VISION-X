@@ -9,7 +9,11 @@
 }
 
 body {
-  width: 100vw !important;
+  width: 100%;
+}
+
+body.nav-active {
+  overflow: hidden;
 }
 
 .navbar {
@@ -43,7 +47,8 @@ body {
   display: flex;
   position: relative;
 }
-.navbar .navbar-logo p p{
+
+.navbar .navbar-logo p p {
   margin-top: 200vh !important;
 }
 
@@ -117,6 +122,7 @@ body {
   padding: 0 10px;
   /* font-size: 0.9rem; */
 }
+
 /* ========== Dropdown Styles ========== */
 
 /* Parent */
@@ -129,17 +135,20 @@ body {
 .dropdown {
   display: none;
   position: absolute;
-  top: 100%;   /* directly below parent */
+  top: 100%;
+  /* directly below parent */
   left: 0;
-  background-color: #ffffff; /* white background */
+  background-color: #ffffff;
+  /* white background */
   min-width: 200px;
   border-radius: 6px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  flex-direction: column; /* stack like list */
+  flex-direction: column;
+  /* stack like list */
   z-index: auto;
   line-height: 1.2;
-  gap : 2px;
-  margin : 0px;
+  gap: 2px;
+  margin: 0px;
 }
 
 /* Dropdown items */
@@ -150,13 +159,15 @@ body {
   border: none !important;
   text-decoration: none;
   transition: all .2s ease;
-  margin : 0px;
+  margin: 0px;
 }
 
 /* Hover effect */
 .dropdown a:hover {
-  background-color: #b3abe6; /* light gray highlight */
-  padding-left: 20px;        /* slight indent */
+  background-color: #b3abe6;
+  /* light gray highlight */
+  padding-left: 20px;
+  /* slight indent */
   border: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
 }
@@ -207,7 +218,7 @@ body {
   justify-content: center;
   flex-direction: column;
   height: 80vh;
-  background: linear-gradient(45deg,rgba(158, 198, 217,0.4) 20%, white 70%, rgb(150, 182, 201,0.1)10%);
+  background: linear-gradient(45deg, rgba(158, 198, 217, 0.4) 20%, white 70%, rgb(150, 182, 201, 0.1)10%);
   margin-top: 20px;
 }
 
@@ -361,7 +372,7 @@ body {
   object-fit: cover;
 } */
 
-  /* courses-heading */
+/* courses-heading */
 #our-course-h1 {
   font-size: 2.4rem;
   font-weight: 800;
@@ -383,65 +394,85 @@ body.dark #our-course-h1:hover {
   color: #ff512f;
 }
 
-  /* courses */
+/* courses */
 /* COURSES SECTION */
 #courses {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  padding: 40px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
   width: 100%;
   box-sizing: border-box;
-  background-color: var(--bg-color);
 }
 
 /* Individual course box */
 .course {
-  color: white;
-  border-radius: 20px;
+  background: #ffffff;
+  color: #1a202c;
+  border-radius: 24px;
   padding: 40px 30px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, #2a0c0c, rgb(81, 86, 91), #0d0f11);
-  background-size: 300% 100%;
-  animation: gradientShift 6s ease-in-out infinite;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
+.course::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.course:hover::before {
+  transform: scaleX(1);
 }
 
 
 .course:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 30px rgba(255,255,255,0.1);
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
 }
 
 /* Image */
 .course img {
-  width: 120px;
-  height: 110px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
   object-fit: contain;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s ease;
+}
+
+.course:hover img {
+  transform: scale(1.1) rotate(5deg);
 }
 
 /* Course info */
 .course-info h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  font-weight: 600;
-  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #1a202c;
+  line-height: 1.3;
 }
 
 .course-info span {
@@ -456,40 +487,34 @@ body.dark #our-course-h1:hover {
 }
 
 .course-info p {
-  margin-top: 8px;
-  color: #aaa;
+  margin-top: 5px;
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 /* Enroll button */
 .course-info button {
-  margin-top: 15px;
-  background: linear-gradient(145deg, #330000, #cd5b03); /* dark lava base */
+  margin-top: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
   font-weight: 600;
   border: none;
-  border-radius: 20px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s ease;
-  border: 1px solid rgba(255, 100, 0, 0.3);
-  box-shadow: 0 0 15px rgba(255, 80, 0, 0.4),
-              0 0 30px rgba(255, 0, 0, 0.3),
-              inset 0 0 5px rgba(255, 150, 0, 0.2);
-  animation: lavaPulse 2s infinite ease-in-out;
-}
-
-
-
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 30px rgba(27, 83, 129, 0.4); }
-  50% { box-shadow: 0 0 40px rgba(27, 83, 129, 0.6); }
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 
 .course-info button:hover {
-  transform: scale(1.1);
-  border: 1px solid #fff;
-  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+  filter: brightness(1.1);
 }
 
 
@@ -572,7 +597,8 @@ body.dark #our-course-h1:hover {
   color: white;
 }
 
-#envelope-icon, #call-icon {
+#envelope-icon,
+#call-icon {
   margin-right: 10px;
 }
 
@@ -616,6 +642,7 @@ body.dark #our-course-h1:hover {
   bottom: 10px;
   width: 100%;
 }
+
 .footer .form img {
   width: 200px;
   height: 200px;
@@ -643,7 +670,7 @@ body.dark #our-course-h1:hover {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   transform-style: preserve-3d;
   perspective: 1000px;
-    background: linear-gradient(to right, #0c0011, rgb(81, 86, 91), #0d0f11);
+  background: linear-gradient(to right, #0c0011, rgb(81, 86, 91), #0d0f11);
   background-size: 300% 100%;
   animation: gradientShift 6s ease-in-out infinite;
 }
@@ -651,7 +678,8 @@ body.dark #our-course-h1:hover {
 /* 3D Hover Effect */
 .testimonial-card:hover {
   transform: translateY(-12px) scale(1.03) rotateX(3deg) rotateY(-3deg);
-  box-shadow: 0 20px 40px rgba(0, 255, 255, 0.25); /* Aqua glow */
+  box-shadow: 0 20px 40px rgba(0, 255, 255, 0.25);
+  /* Aqua glow */
   cursor: pointer;
 }
 
@@ -660,8 +688,8 @@ body.dark #our-course-h1:hover {
   border-radius: 50%;
   margin-bottom: 10px;
   box-shadow: 0 0 45px rgba(57, 192, 215, 0.4),
-              0 0 30px rgba(18, 129, 159, 0.3),
-              inset 0 0 5px rgba(57, 199, 234, 0.2);
+    0 0 30px rgba(18, 129, 159, 0.3),
+    inset 0 0 5px rgba(57, 199, 234, 0.2);
   animation: lavaPulse 2s infinite ease-in-out;
 }
 
@@ -684,7 +712,8 @@ body.dark #our-course-h1:hover {
   font-size: 14px;
 }
 
-#testimonial-btn-left, #testimonial-btn-right{
+#testimonial-btn-left,
+#testimonial-btn-right {
   background: linear-gradient(145deg, #330000, #cd5b03);
   border: none;
   padding: 10px;
@@ -692,25 +721,26 @@ body.dark #our-course-h1:hover {
   color: #ebe3e3;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(255, 80, 0, 0.4),
-              0 0 30px rgba(255, 0, 0, 0.3),
-              inset 0 0 5px rgba(255, 150, 0, 0.2);
+    0 0 30px rgba(255, 0, 0, 0.3),
+    inset 0 0 5px rgba(255, 150, 0, 0.2);
   animation: lavaPulse 2s infinite ease-in-out;
 
 }
 
-#testimonial-btn-left:hover, #testimonial-btn-right:hover{
+#testimonial-btn-left:hover,
+#testimonial-btn-right:hover {
   transform: scale(1.1);
-  background:rgb(90, 29, 3);
+  background: rgb(90, 29, 3);
   transition: 0.5s;
 }
 
 
 /* Scroll to top */
-#scrollTopBtn { 
+#scrollTopBtn {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  z-index: 999; 
+  z-index: 999;
   border: none;
   outline: none;
   background-color: #0a0a0a;
@@ -718,7 +748,7 @@ body.dark #our-course-h1:hover {
   cursor: pointer;
   padding: 10px 15px;
   border-radius: 50%;
-  box-shadow:  0 12px 20px rgba(20, 5, 158, 0.3);
+  box-shadow: 0 12px 20px rgba(20, 5, 158, 0.3);
   opacity: 0;
   pointer-events: none;
   transition: all 0.4s ease;
@@ -726,7 +756,7 @@ body.dark #our-course-h1:hover {
   transform: translateY(65px);
 }
 
-#scrollTopBtn svg{
+#scrollTopBtn svg {
   width: 24px;
   height: 24px;
   transition: transform 0.4s ease;
@@ -734,41 +764,50 @@ body.dark #our-course-h1:hover {
   position: relative;
   top: 4px;
 }
-#scrollTopBtn.show{
+
+#scrollTopBtn.show {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 
 }
-#scrollTopBtn:hover{
+
+#scrollTopBtn:hover {
   background-color: #093586;
   transform: translateY(0) scale(1.05);
-  box-shadow: 0 0 10px rgba(14 , 39 , 182 , 0.4);
+  box-shadow: 0 0 10px rgba(14, 39, 182, 0.4);
 }
-#scrollTopBtn:hover svg{
+
+#scrollTopBtn:hover svg {
   transform: scale(1.1);
   top: 0;
 }
-.dark #scrollTopBtn{
+
+.dark #scrollTopBtn {
   background-color: white;
-  
+
 }
+
 .dark #scrollTopBtn svg {
-  fill: #0a0a0a; /* arrow color for dark mode */
+  fill: #0a0a0a;
+  /* arrow color for dark mode */
 }
 
 /* bounce animation added to back to top */
 @keyframes bounce {
-  0% , 100%{
+
+  0%,
+  100% {
     transform: translateY(0);
   }
-  50%{
+
+  50% {
     transform: translateY(-6px);
   }
 }
 
 /* apply bounce when not hover  */
-#scrollTopBtn.bounce:not(:hover) svg{
+#scrollTopBtn.bounce:not(:hover) svg {
   animation: bounce 2s infinite;
 }
 
@@ -811,7 +850,7 @@ body.dark #our-course-h1:hover {
   transition: 0.3s;
 }
 
-.checkbox:checked ~ .slider {
+.checkbox:checked~.slider {
   background-color: var(--light);
 }
 
@@ -830,7 +869,7 @@ body.dark #our-course-h1:hover {
   transition: 0.3s;
 }
 
-.checkbox:checked ~ .slider::before {
+.checkbox:checked~.slider::before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -857,19 +896,23 @@ body.dark .navbar {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+
 body.dark .navbar h1,
 body.dark .navbar a {
   color: #fff;
 }
+
 body.dark .navbar a.btn {
   background-color: #222;
   color: #fff;
   border-color: #fff;
 }
+
 body.dark .navbar a.btn:hover {
   background-color: #fff;
   color: #222;
 }
+
 /* White underline for nav links in dark mode */
 body.dark .navbar .nav-links a::after {
   content: "";
@@ -884,6 +927,7 @@ body.dark .navbar .nav-links a:hover::after,
 body.dark .navbar .nav-links a.active::after {
   width: 100%;
 }
+
 body.dark .dropdown {
   background-color: #333;
   border: 1px solid #555;
@@ -899,6 +943,7 @@ body.dark .dropdown a:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
 }
+
 /* Dark mode for main section */
 body.dark .main {
   background-color: #222;
@@ -929,9 +974,11 @@ body.dark .footer {
   background-color: #181818;
   color: #fff;
 }
+
 body.dark .footer a {
   color: #fff;
 }
+
 /* Why Learn With Us Section */
 #why-learn {
   padding: 60px 20px;
@@ -995,12 +1042,12 @@ body.dark .footer a {
   }
 }
 
-body.dark #why-learn{
-  background:none;
+body.dark #why-learn {
+  background: none;
   color: white;
 }
 
-body.dark .why-card{
+body.dark .why-card {
   color: white;
 }
 
@@ -1133,8 +1180,10 @@ body.dark .language-option.active:hover {
 /* Circular Loader Track Animation */
 .loader-track {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: #fff;
   display: flex;
   align-items: center;
@@ -1153,8 +1202,10 @@ body.dark .language-option.active:hover {
 
 .loader-dot {
   position: absolute;
-  top: 50%; left: 50%;
-  width: 20px; height: 20px;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
   background: #fff;
   border-radius: 50%;
   transform: translate(-50%, -50%) rotate(0deg) translate(40px, 0);
@@ -1163,7 +1214,11 @@ body.dark .language-option.active:hover {
 }
 
 @keyframes rotateDot {
-  0%   { transform: translate(-50%, -50%) rotate(0deg) translate(40px, 0); }
-  100% { transform: translate(-50%, -50%) rotate(360deg) translate(40px, 0); }
-}
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translate(40px, 0);
+  }
 
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translate(40px, 0);
+  }
+}

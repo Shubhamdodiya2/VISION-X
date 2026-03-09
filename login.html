@@ -7,8 +7,8 @@
   <script type="module" src="./src/js/firebase.js"></script>
   <link rel="shortcut icon" href="logo-vision_X.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/utils.css">
+  <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/responsive.css">
   <title>Login</title>
   <style>
@@ -19,12 +19,21 @@
 
     body {
       background: white;
-      /*       display: flex; */
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      width: 100%;
+    }
+
+    .auth-wrapper {
+      display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      /*       padding: 20px; */
-      overflow-x: hidden;
+      min-height: calc(100vh - 85px);
+      /* Subtract navbar height */
+      padding: 20px;
     }
 
     .container {
@@ -36,6 +45,19 @@
       box-shadow: 0 8px 150px rgba(0, 0, 0, 0.15);
       border: 1px solid #ccc;
       font-weight: 500;
+      margin: 40px auto 20px;
+      /* Reduced top margin */
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
     }
 
 
@@ -185,7 +207,7 @@
 
 
     .google-btn:hover {
-       box-shadow:none;
+      box-shadow: none;
     }
 
     .google-icon {
@@ -204,7 +226,7 @@
       gap: 10px;
       align-items: center;
       justify-content: center;
-      margin: 1rem auto;      
+      margin: 1rem auto;
       width: fit-content;
     }
 
@@ -221,35 +243,18 @@
       font-size: 0.85rem;
     }
 
-    .nav-hamburger{
+    .nav-hamburger {
       cursor: pointer;
-    }
-    .logo-container{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-left: 12px;
-      margin: 10px 2px;
-      
-    }
-    #navbar-links{
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      justify-content: space-between;
-      white-space: nowrap;
-      align-items: center;
     }
   </style>
 </head>
 
 <body>
   <div class="navbar">
-    <div class="logo-container">
-      <a href="./"><img id="navbar-logo" width="80px" src="logo-vision_X.png" alt="logo Vision X"></a>
-      <h1><a href="./">Vision X</a></h1>
-    </div>
-    
+    <h1><a href="./">
+        <img id="navbar-logo" width="80px" src="logo-vision_X.png" alt="logo Vision x"> Vision X</a>
+    </h1>
+
     <div id="navbar-links" class="nav-links align-items-center">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
@@ -273,67 +278,64 @@
       </svg>
     </div>
   </div>
-  <br><br>
-  <div class="container">
-    <a href="index.html"
-      style="display: inline-block; margin-bottom: 10px; font-size: 14px; color: #555; text-decoration: none;">
-      ← Back to Homepage
-    </a>
-    <h2>Login</h2>
-    <form id="Login-form">
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="email" required />
-        <div id="emailFeedback" class="inline-feedback"></div>
-      </div>
-
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="password" required />
-        <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
-      </div>
-
-      <div class="checkbox-group">
-        <input type="checkbox" id="remember" />
-        <label for="remember">Remember Me</label>
-      </div>
-
-      <a href="#" class="forgot-password">Forgot Password?</a>
-
-      <button type="submit" class="btn">Login</button>
-      <div class="spinner" id="spinner"></div>
-
-      <div class="divider">
-        <span>or continue with</span>
-      </div>
-
-      <div class="input">
-        <button id="google-login-btn" class="google-btn">
-          <span class="google-logo">
-            <svg class="google-icon" viewBox="0 0 533.5 544.3">
-              <path fill="#4285F4"
-                d="M533.5 278.4c0-18.5-1.6-37.1-5-55.2H272v104.5h146.9c-6.4 34.7-25.7 64.1-54.9 83.5l89 69.4c52-47.8 80.5-118.3 80.5-202.2z" />
-              <path fill="#34A853"
-                d="M272 544.3c73.6 0 135.4-24.3 180.5-65.9l-89-69.4c-24.7 16.6-56.4 26.2-91.5 26.2-70.4 0-130-47.6-151.3-111.5l-93.6 72.3c43.3 85.1 132.1 147.3 244.9 147.3z" />
-              <path fill="#FBBC04"
-                d="M120.7 323.7c-10.4-30.7-10.4-63.6 0-94.3L27 157c-40.7 79.7-40.7 172 0 251.7l93.7-72.3z" />
-              <path fill="#EA4335"
-                d="M272 107.7c38.6-.6 75.5 13.6 104 39.4l77.7-77.7C403.2 23.9 340.2-.2 272 0 159.2 0 70.5 62.2 27.2 147.3l93.6 72.4c21.4-63.9 81-111.5 151.2-112z" />
-            </svg>
-          </span>
-          <span>Sign in with Google</span>
-        </button>
-
-
-        <div class="signup-page">
-          <p>Don't have an account? <a href="signup.html"> Sign up</a></p>
+  <div class="auth-wrapper">
+    <div class="container">
+      <a href="index.html"
+        style="display: inline-block; margin-bottom: 10px; font-size: 14px; color: #555; text-decoration: none;">
+        ← Back to Homepage
+      </a>
+      <h2>Login</h2>
+      <form id="Login-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required />
+          <div id="emailFeedback" class="inline-feedback"></div>
         </div>
 
-        <!--div class="social-buttons">
-          <div class="social-btn"><img src="assets/images/instagram.png" width="20%"> Instagram</div>
-          <div class="social-btn"><img src="assets/images/twitter.png" width="20%"> Twitter</div>
-        </div-->
-    </form>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required />
+          <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="remember" />
+          <label for="remember">Remember Me</label>
+        </div>
+
+        <a href="#" class="forgot-password">Forgot Password?</a>
+
+        <button type="submit" class="btn">Login</button>
+        <div class="spinner" id="spinner"></div>
+
+        <div class="divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="input">
+          <button id="google-login-btn" class="google-btn">
+            <span class="google-logo">
+              <svg class="google-icon" viewBox="0 0 533.5 544.3">
+                <path fill="#4285F4"
+                  d="M533.5 278.4c0-18.5-1.6-37.1-5-55.2H272v104.5h146.9c-6.4 34.7-25.7 64.1-54.9 83.5l89 69.4c52-47.8 80.5-118.3 80.5-202.2z" />
+                <path fill="#34A853"
+                  d="M272 544.3c73.6 0 135.4-24.3 180.5-65.9l-89-69.4c-24.7 16.6-56.4 26.2-91.5 26.2-70.4 0-130-47.6-151.3-111.5l-93.6 72.3c43.3 85.1 132.1 147.3 244.9 147.3z" />
+                <path fill="#FBBC04"
+                  d="M120.7 323.7c-10.4-30.7-10.4-63.6 0-94.3L27 157c-40.7 79.7-40.7 172 0 251.7l93.7-72.3z" />
+                <path fill="#EA4335"
+                  d="M272 107.7c38.6-.6 75.5 13.6 104 39.4l77.7-77.7C403.2 23.9 340.2-.2 272 0 159.2 0 70.5 62.2 27.2 147.3l93.6 72.4c21.4-63.9 81-111.5 151.2-112z" />
+              </svg>
+            </span>
+            <span>Sign in with Google</span>
+          </button>
+
+
+          <div class="signup-page">
+            <p>Don't have an account? <a href="signup.html"> Sign up</a></p>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script type="module">
@@ -386,23 +388,23 @@
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
         console.log("User signed in:", userCredential.user);
-        
+
         // Store login state in localStorage
         localStorage.setItem('userLoggedIn', 'true');
         localStorage.setItem('userEmail', userCredential.user.email);
         localStorage.setItem('userUID', userCredential.user.uid);
-        
+
         alert("Login successful!");
-        
+
         // Small delay to ensure auth state is updated
         setTimeout(() => {
           window.location.href = "index.html";
         }, 500);
-        
+
       } catch (error) {
         console.error("Login error:", error);
         let errorMessage = "Login failed. Please try again.";
-        
+
         switch (error.code) {
           case "auth/user-not-found":
             errorMessage = "No account found with this email.";
@@ -429,7 +431,7 @@
 
     // Google Sign-In
     if (googleLoginBtn) {
-      googleLoginBtn.addEventListener("click", async function(e) {
+      googleLoginBtn.addEventListener("click", async function (e) {
         e.preventDefault();
         spinner.style.display = "block";
         googleLoginBtn.disabled = true;
@@ -438,24 +440,24 @@
           const provider = new GoogleAuthProvider();
           provider.addScope('email');
           provider.addScope('profile');
-          
+
           const result = await signInWithPopup(auth, provider);
           console.log("Google sign-in successful:", result.user);
-          
+
           // Store login state in localStorage
           localStorage.setItem('userLoggedIn', 'true');
           localStorage.setItem('userEmail', result.user.email);
           localStorage.setItem('userUID', result.user.uid);
           localStorage.setItem('userDisplayName', result.user.displayName || '');
           localStorage.setItem('userPhotoURL', result.user.photoURL || '');
-          
+
           alert("Login successful!");
-          
+
           // Small delay to ensure auth state is updated
           setTimeout(() => {
             window.location.href = "index.html";
           }, 500);
-          
+
         } catch (error) {
           console.error("Google sign-in error:", error);
           if (error.code !== 'auth/popup-closed-by-user') {

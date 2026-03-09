@@ -26,20 +26,21 @@ body {
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 body.dark .dropdown {
-  background-color: #333;
-  border: 1px solid #555;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    background-color: #333;
+    border: 1px solid #555;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 body.dark .dropdown a {
-  color: #fff;
-  border-bottom-color: #555;
+    color: #fff;
+    border-bottom-color: #555;
 }
 
 body.dark .dropdown a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
 }
 
 .navbar h1 {
@@ -117,113 +118,47 @@ body.dark .dropdown a:hover {
 
 /* PROFILE SECTION */
 .profile-section {
-    padding: 30px;
+    padding: 30px 15px;
     background: #f4f4f4;
     font-family: "Segoe UI", sans-serif;
 }
 
 .profile-container {
     display: flex;
-    flex-wrap: wrap;
-    margin: 30px;
-
-
+    flex-direction: row;
+    gap: 30px;
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 0 15px;
 }
-
-
 
 .sidebar {
-    margin-left: 0;
-   
-    color: #060606;
-   
-    width: 100%;
-    max-width: 400px;
+    width: 350px;
     flex-shrink: 0;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-.profile-pic {
-    width: 250px;
-    height: 250px;
-
-
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    margin-bottom: 15px;
-    transition: transform 0.3s;
+.content-center {
+    flex: 1;
 }
 
-.profile-pic:hover {
-    transform: scale(1.05);
-}
-
-.edit-btn {
-    display: inline-block;
-    background: #0f0f0f;
-    color: #fff;
-    padding: 8px 16px;
-    margin: 10px auto;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
-    border: none;
-}
-
-.edit-btn:hover {
-    background: #727374;
-}
-
-#uploadPic {
-    display: none;
-}
-
-.sidebar h2 {
-    font-size: 24px;
-    margin-top: 10px;
-}
-
-.sidebar p {
-    font-size: 16px;
-    opacity: 0.85;
-    margin: 10px 0;
-}
-
-.dark-toggle {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-    .sidebar {
-        width: 100%;
-        max-width: none;
-    }
-}
-
-
-
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .profile-container {
         flex-direction: column;
+        align-items: center;
     }
 
     .sidebar {
         width: 100%;
-        border-radius: 16px 16px 0 0;
+        max-width: 500px;
     }
 
-    .main-content {
-        padding: 20px;
+    .content-center {
+        width: 100%;
+        max-width: 800px;
     }
 }
 

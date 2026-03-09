@@ -7,8 +7,8 @@
   <script type="module" src="./src/js/firebase.js"></script>
   <link rel="shortcut icon" href="logo-vision_X.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/utils.css">
+  <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/responsive.css">
   <title>Sign Up</title>
   <style>
@@ -16,29 +16,38 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
     }
+
     #passwordChecklist p {
-  margin: 3px 0;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: 0.3s;
-}
+      margin: 3px 0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
 
-.valid {
-  color: green;
-}
+    .valid {
+      color: green;
+    }
 
-.invalid {
-  color: red;
-}
+    .invalid {
+      color: red;
+    }
 
     body {
       background: white;
-      /*       display: flex; */
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      width: 100%;
+    }
+
+    .auth-wrapper {
+      display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      /*       padding: 20px; */
-      overflow-x: hidden;
+      min-height: calc(100vh - 85px);
+      padding: 20px;
     }
 
     .container {
@@ -50,6 +59,8 @@
       box-shadow: 0 8px 150px rgba(0, 0, 0, 0.15);
       border: 1px solid #ccc;
       font-weight: 500;
+      margin: 40px auto 20px;
+      /* Reduced top margin */
     }
 
     h2 {
@@ -148,32 +159,14 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
-        .logo-container{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-left: 12px;
-      margin: 10px 2px;
-      
-    }
-    #navbar-links{
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      justify-content: space-between;
-      white-space: nowrap;
-      align-items: center;
-    }
   </style>
 </head>
 
 <body>
-  <div id="navbar-links" class="navbar">
-    <div class="logo-container">
-        <a href="./">
-        <img id="navbar-logo" width="80px" src="logo-vision_X.png" alt="logo Vision X"></a>
-        <h1><a href="./">Vision X</a></h1>
-    </div>
+  <div class="navbar">
+    <h1><a href="./">
+        <img id="navbar-logo" width="80px" src="logo-vision_X.png" alt="logo Vision x"> Vision X</a>
+    </h1>
     <div class="nav-links align-items-center">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
@@ -197,230 +190,231 @@
       </svg>
     </div>
   </div>
-  <br><br>
-  <div class="container margin-top-5">
-    <a href="index.html"
-      style="display: inline-block; margin-bottom: 10px; font-size: 14px; color: #555; text-decoration: none;">
-      ← Back to Homepage
-    </a>
-    <h2>Sign Up</h2>
-    <form id="signup-form">
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" id="name" required />
-        <div id="nameFeedback" class="inline-feedback"></div>
-      </div>
+  <div class="auth-wrapper">
+    <div class="container margin-top-5">
+      <a href="index.html"
+        style="display: inline-block; margin-bottom: 10px; font-size: 14px; color: #555; text-decoration: none;">
+        ← Back to Homepage
+      </a>
+      <h2>Sign Up</h2>
+      <form id="signup-form">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="name" required />
+          <div id="nameFeedback" class="inline-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="email" required />
-        <div id="emailFeedback" class="inline-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required />
+          <div id="emailFeedback" class="inline-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="password" required />
-        <div id="passwordChecklist" style="margin-top: 10px; font-size: 0.9rem;">
-  <p id="length" class="invalid">Minimum 8 characters</p>
-  <p id="uppercase" class="invalid"> At least 1 uppercase letter</p>
-  <p id="lowercase" class="invalid"> At least 1 lowercase letter</p>
-  <p id="number" class="invalid"> At least 1 number</p>
-  <p id="special" class="invalid"> At least 1 special character</p>
-</div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required />
+          <div id="passwordChecklist" style="margin-top: 10px; font-size: 0.9rem;">
+            <p id="length" class="invalid">Minimum 8 characters</p>
+            <p id="uppercase" class="invalid"> At least 1 uppercase letter</p>
+            <p id="lowercase" class="invalid"> At least 1 lowercase letter</p>
+            <p id="number" class="invalid"> At least 1 number</p>
+            <p id="special" class="invalid"> At least 1 special character</p>
+          </div>
 
-        <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
-      </div>
+          <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+        </div>
 
-      <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" id="confirm-password" required />
-        <span class="toggle-password" onclick="togglePassword('confirm-password')">👁️</span>
-        <div id="matchFeedback" class="inline-feedback"></div>
-      </div>
-      <div class="form-group">
-        <input type="checkbox" id="terms" required style="width:auto; margin-right:8px;" />
-        <label for="terms" style="display:inline;">
-          I agree to the <a href="tandc.html" target="_blank">Terms and Conditions</a>
-        </label>
-      </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="confirm-password" required />
+          <span class="toggle-password" onclick="togglePassword('confirm-password')">👁️</span>
+          <div id="matchFeedback" class="inline-feedback"></div>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="terms" required style="width:auto; margin-right:8px;" />
+          <label for="terms" style="display:inline;">
+            I agree to the <a href="tandc.html" target="_blank">Terms and Conditions</a>
+          </label>
+        </div>
 
-      <button type="submit" class="btn">Sign Up</button>
-      <div class="spinner" id="spinner"></div>
+        <button type="submit" class="btn">Sign Up</button>
+        <div class="spinner" id="spinner"></div>
 
-      <div class="login-page">
-        <p>Already have an account? <a href="login.html">Login</a></p>
-      </div>
-    </form>
+        <div class="login-page">
+          <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script type="module">
-        import { auth, db } from './src/js/firebase.js';
-        import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-        import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-        import { redirectIfAuthenticated } from './src/js/auth-utils.js';
+    import { auth, db } from './src/js/firebase.js';
+    import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+    import { redirectIfAuthenticated } from './src/js/auth-utils.js';
 
-        function togglePassword(id) {
-          const input = document.getElementById(id);
-          input.type = input.type === "password" ? "text" : "password";
-        }
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
 
-        const form = document.getElementById("signup-form");
-        const password = document.getElementById("password");
-        const confirmPassword = document.getElementById("confirm-password");
-        const email = document.getElementById("email");
-        const name = document.getElementById("name");
-        const matchFeedback = document.getElementById("matchFeedback");
-        const emailFeedback = document.getElementById("emailFeedback");
-        const nameFeedback = document.getElementById("nameFeedback");
-        const spinner = document.getElementById("spinner");
-        const passwordInput = document.getElementById("password");
-        const checklist = {
-          length: document.getElementById("length"),
-          uppercase: document.getElementById("uppercase"),
-          lowercase: document.getElementById("lowercase"),
-          number: document.getElementById("number"),
-          special: document.getElementById("special"),
+    const form = document.getElementById("signup-form");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm-password");
+    const email = document.getElementById("email");
+    const name = document.getElementById("name");
+    const matchFeedback = document.getElementById("matchFeedback");
+    const emailFeedback = document.getElementById("emailFeedback");
+    const nameFeedback = document.getElementById("nameFeedback");
+    const spinner = document.getElementById("spinner");
+    const passwordInput = document.getElementById("password");
+    const checklist = {
+      length: document.getElementById("length"),
+      uppercase: document.getElementById("uppercase"),
+      lowercase: document.getElementById("lowercase"),
+      number: document.getElementById("number"),
+      special: document.getElementById("special"),
+    };
+
+    // Check if user is already logged in and redirect
+    redirectIfAuthenticated();
+
+    passwordInput.addEventListener("input", () => {
+      const value = passwordInput.value;
+
+      checklist.length.className = value.length >= 8 ? "valid" : "invalid";
+      checklist.uppercase.className = /[A-Z]/.test(value) ? "valid" : "invalid";
+      checklist.lowercase.className = /[a-z]/.test(value) ? "valid" : "invalid";
+      checklist.number.className = /[0-9]/.test(value) ? "valid" : "invalid";
+      checklist.special.className = /[!@#$%^&*(),.?":{}|<>]/.test(value)
+        ? "valid"
+        : "invalid";
+    });
+
+    confirmPassword.addEventListener("input", () => {
+      matchFeedback.textContent = confirmPassword.value !== password.value
+        ? "Passwords do not match"
+        : "";
+    });
+
+    email.addEventListener("input", () => {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      emailFeedback.textContent = regex.test(email.value)
+        ? ""
+        : "Enter a valid email address";
+    });
+
+    name.addEventListener("input", () => {
+      nameFeedback.textContent = name.value.length < 2
+        ? "Name must be at least 2 characters"
+        : "";
+    });
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Validate name
+      if (name.value.length < 2) {
+        alert("Please enter a valid name (at least 2 characters).");
+        return;
+      }
+
+      // Validate email format
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      // Validate password requirements
+      const isPasswordValid =
+        password.value.length >= 8 &&
+        /[A-Z]/.test(password.value) &&
+        /[a-z]/.test(password.value) &&
+        /[0-9]/.test(password.value) &&
+        /[!@#$%^&*(),.?":{}|<>]/.test(password.value);
+
+      if (!isPasswordValid) {
+        alert("Password must meet all requirements.");
+        return;
+      }
+
+      if (password.value !== confirmPassword.value) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      spinner.style.display = "block";
+      form.querySelector('button[type="submit"]').disabled = true;
+
+      try {
+        // Create user with Firebase Authentication
+        const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        const user = userCredential.user;
+
+        // Update user profile with display name
+        await updateProfile(user, {
+          displayName: name.value
+        });
+
+        // Create user document in Firestore
+        const userData = {
+          uid: user.uid,
+          name: name.value,
+          email: email.value,
+          skills: [],
+          courses: [],
+          certificates: [],
+          profileImage: "",
+          createdAt: serverTimestamp(),
+          lastLogin: serverTimestamp()
         };
 
-        // Check if user is already logged in and redirect
-        redirectIfAuthenticated();
+        await setDoc(doc(db, "users", user.uid), userData);
 
-        passwordInput.addEventListener("input", () => {
-          const value = passwordInput.value;
+        console.log("User created successfully:", user);
 
-          checklist.length.className = value.length >= 8 ? "valid" : "invalid";
-          checklist.uppercase.className = /[A-Z]/.test(value) ? "valid" : "invalid";
-          checklist.lowercase.className = /[a-z]/.test(value) ? "valid" : "invalid";
-          checklist.number.className = /[0-9]/.test(value) ? "valid" : "invalid";
-          checklist.special.className = /[!@#$%^&*(),.?":{}|<>]/.test(value)
-            ? "valid"
-            : "invalid";
-        });
+        // Store login state in localStorage
+        localStorage.setItem('userLoggedIn', 'true');
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('userUID', user.uid);
+        localStorage.setItem('userDisplayName', name.value);
 
-        confirmPassword.addEventListener("input", () => {
-          matchFeedback.textContent = confirmPassword.value !== password.value
-            ? "Passwords do not match"
-            : "";
-        });
+        alert("Account created successfully!");
+        form.reset();
 
-        email.addEventListener("input", () => {
-          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          emailFeedback.textContent = regex.test(email.value)
-            ? ""
-            : "Enter a valid email address";
-        });
+        // Small delay to ensure auth state is updated
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 500);
 
-        name.addEventListener("input", () => {
-          nameFeedback.textContent = name.value.length < 2
-            ? "Name must be at least 2 characters"
-            : "";
-        });
+      } catch (error) {
+        console.error("Signup error:", error);
+        let errorMessage = "Signup failed. Please try again.";
 
-        form.addEventListener("submit", async function (e) {
-          e.preventDefault();
-
-          // Validate name
-          if (name.value.length < 2) {
-            alert("Please enter a valid name (at least 2 characters).");
-            return;
-          }
-
-          // Validate email format
-          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailPattern.test(email.value)) {
-            alert("Please enter a valid email address.");
-            return;
-          }
-
-          // Validate password requirements
-          const isPasswordValid = 
-            password.value.length >= 8 &&
-            /[A-Z]/.test(password.value) &&
-            /[a-z]/.test(password.value) &&
-            /[0-9]/.test(password.value) &&
-            /[!@#$%^&*(),.?":{}|<>]/.test(password.value);
-
-          if (!isPasswordValid) {
-            alert("Password must meet all requirements.");
-            return;
-          }
-
-          if (password.value !== confirmPassword.value) {
-            alert("Passwords do not match.");
-            return;
-          }
-
-          spinner.style.display = "block";
-          form.querySelector('button[type="submit"]').disabled = true;
-
-          try {
-            // Create user with Firebase Authentication
-            const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
-            const user = userCredential.user;
-
-            // Update user profile with display name
-            await updateProfile(user, {
-              displayName: name.value
-            });
-
-            // Create user document in Firestore
-            const userData = {
-              uid: user.uid,
-              name: name.value,
-              email: email.value,
-              skills: [],
-              courses: [],
-              certificates: [],
-              profileImage: "",
-              createdAt: serverTimestamp(),
-              lastLogin: serverTimestamp()
-            };
-
-            await setDoc(doc(db, "users", user.uid), userData);
-
-            console.log("User created successfully:", user);
-            
-            // Store login state in localStorage
-            localStorage.setItem('userLoggedIn', 'true');
-            localStorage.setItem('userEmail', user.email);
-            localStorage.setItem('userUID', user.uid);
-            localStorage.setItem('userDisplayName', name.value);
-            
-            alert("Account created successfully!");
-            form.reset();
-
-            // Small delay to ensure auth state is updated
-            setTimeout(() => {
-              window.location.href = "index.html";
-            }, 500);
-
-          } catch (error) {
-            console.error("Signup error:", error);
-            let errorMessage = "Signup failed. Please try again.";
-            
-            switch (error.code) {
-              case "auth/email-already-in-use":
-                errorMessage = "An account with this email already exists.";
-                break;
-              case "auth/invalid-email":
-                errorMessage = "Invalid email address.";
-                break;
-              case "auth/weak-password":
-                errorMessage = "Password is too weak. Please choose a stronger password.";
-                break;
-              case "auth/operation-not-allowed":
-                errorMessage = "Email/password accounts are not enabled.";
-                break;
-              case "auth/network-request-failed":
-                errorMessage = "Network error. Please check your internet connection.";
-                break;
-            }
-            alert(errorMessage);
-          } finally {
-            spinner.style.display = "none";
-            form.querySelector('button[type="submit"]').disabled = false;
-          }
-        });
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            errorMessage = "An account with this email already exists.";
+            break;
+          case "auth/invalid-email":
+            errorMessage = "Invalid email address.";
+            break;
+          case "auth/weak-password":
+            errorMessage = "Password is too weak. Please choose a stronger password.";
+            break;
+          case "auth/operation-not-allowed":
+            errorMessage = "Email/password accounts are not enabled.";
+            break;
+          case "auth/network-request-failed":
+            errorMessage = "Network error. Please check your internet connection.";
+            break;
+        }
+        alert(errorMessage);
+      } finally {
+        spinner.style.display = "none";
+        form.querySelector('button[type="submit"]').disabled = false;
+      }
+    });
 
 
 

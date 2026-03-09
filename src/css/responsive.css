@@ -5,75 +5,125 @@
   }
 
   .navbar .nav-toggle {
-    display: block !important;
+    display: flex !important;
     position: relative;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    display: flex;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    z-index: 1001;
   }
 
   .navbar .nav-links.active {
-    z-index: 2 !important;
+    z-index: 1000 !important;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 60px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
     right: 0;
     width: 100vw;
-    background-color: white;
-    border: 1px solid black;
-    padding: 10px;
-    font-size: larger;
-    height: 90vh;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 2rem;
+    font-size: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: slideInMenu 0.4s forwards;
+  }
+
+  @keyframes slideInMenu {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 
   .navbar .nav-links.active a {
-    margin: 5px;
+    margin: 15px 0;
+    width: auto;
+    text-align: center;
   }
 
   .navbar .nav-links.active a.btn {
-    margin: 5px;
-    width: 180px;
-  }
-
-  .hero-section-imgs#hero-img-center {
-    animation: animate-center-image 3s infinite;
-  }
-
-  .hero-section-imgs.hero-imgs-muted {
-    animation: animate-muted-images 3s infinite;
+    margin: 10px 0;
+    width: 220px;
+    padding: 15px;
   }
 
   /* Dark mode for mobile nav */
   body.dark .navbar .nav-links.active {
-    background-color: #181818;
-    border: 1px solid #444;
+    background: rgba(18, 18, 18, 0.95);
+    border: none;
   }
+
   body.dark .navbar .nav-links.active a,
   body.dark .navbar .nav-links.active a.btn {
     color: #fff;
     background-color: transparent;
     border-color: #fff;
   }
+
   body.dark .navbar .nav-links.active a.btn {
     background-color: #fff;
     color: #222;
   }
+
   body.dark .navbar .nav-links.active a.btn:hover {
     background-color: #222;
     color: #fff;
   }
 
+  /* Hero Section Mobile Adjustments */
+  .main {
+    height: auto !important;
+    padding: 100px 20px 60px !important;
+    text-align: center;
+  }
+
+  .main h1 {
+    font-size: 2.5rem !important;
+    margin-bottom: 30px !important;
+  }
+
+  .main .images {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-section-imgs {
+    width: 180px !important;
+    height: 180px !important;
+  }
+
+  #hero-img-left,
+  #hero-img-right {
+    display: none;
+    /* Hide muted images on small mobile to save vertical space */
+  }
+
+  #hero-img-center {
+    width: 250px !important;
+    height: 250px !important;
+    margin: 0 auto;
+  }
+
   @keyframes animate-center-image {
     50% {
-      width: 220px;
-      height: 220px;
+      width: 260px;
+      height: 260px;
     }
 
     100% {
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 250px;
     }
   }
 
@@ -142,29 +192,63 @@
 
   .footer {
     flex-direction: column;
+    text-align: center;
+    padding: 40px 20px !important;
+    gap: 40px;
   }
 
   .footer h3 {
-    margin-top: 20px;
+    margin-top: 0;
   }
 
   .footer .social {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
+  }
+
+  .footer .contact {
+    align-items: center;
+  }
+
+  .footer .form {
+    padding-bottom: 0;
+    align-items: center;
+  }
+
+  .footer .form img {
+    margin-top: 20px;
   }
 
   .footer .form input,
   .footer .form textarea {
-    width: 300px;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  /* Why Learn Section Mobile */
+  #why-learn h2 {
+    font-size: 1.8rem;
+    padding: 0 10px;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr !important;
+    padding: 20px !important;
+    gap: 20px !important;
+  }
+
+  .why-card {
+    padding: 20px !important;
   }
 
   /* Dark mode for footer */
   body.dark .footer {
-    background-color: #181818;
+    background-color: #121212;
     color: #fff;
   }
+
   body.dark .footer a {
     color: #fff;
   }
@@ -180,13 +264,16 @@
   #testimonial-card-1 {
     display: none;
   }
+
   #getCertificate {
     max-width: 300px;
     min-width: 280px;
   }
+
   div#certificate-template-part {
     overflow-x: scroll;
   }
+
   div#captureArea {
     transform: translateX(250px);
   }

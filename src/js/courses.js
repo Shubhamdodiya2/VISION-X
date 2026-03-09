@@ -98,7 +98,7 @@ class CourseManager {
         this.courses.forEach((course, index) => {
             const courseElement = document.createElement('div');
             courseElement.className = `course ${index % 2 === 1 ? 'alter-course' : ''}`;
-            
+
             courseElement.innerHTML = `
                 <img src="${course.thumbnail}" alt="${course.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Course+Image'">
                 <div class="course-info">
@@ -112,7 +112,7 @@ class CourseManager {
                     </a>
                 </div>
             `;
-            
+
             container.appendChild(courseElement);
         });
     }

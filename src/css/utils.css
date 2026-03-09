@@ -76,7 +76,30 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+}
+
+/* Responsive Utilities */
+.flex-column-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 769px) {
+  .flex-row-desktop {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.w-full-mobile {
+  width: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
 }
 
 /* Typography enhancements */
@@ -114,5 +137,9 @@
 @media (max-width: 768px) {
   .heading-xl {
     font-size: 1.8rem;
+  }
+  
+  html {
+    font-size: 14px;
   }
 }
